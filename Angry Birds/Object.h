@@ -2,11 +2,13 @@
 
 #include <Box2D\Box2D.h>
 
+class Scene;
 struct NVGcontext;
 
 class Object
 {
 public:
+	Object(Scene&);
 	virtual ~Object() {};
 
 	virtual void draw(NVGcontext*) const = 0;
@@ -19,6 +21,7 @@ public:
 protected:
 	b2Body * m_body;
 	b2BodyDef m_bodyDef;
+	Scene& m_gameScene;
 };
 
 

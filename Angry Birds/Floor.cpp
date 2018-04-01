@@ -8,7 +8,9 @@
 Floor::Floor(Scene& scene, float posX, float posY, float width, float height)
 	:
 	m_width(width),
-	m_height(height)
+	m_height(height),
+	Object(scene)
+
 {
 	m_bodyDef.position.Set(posX, posY);
 	m_body = scene.addObject(std::unique_ptr<Object>(this));

@@ -6,6 +6,8 @@
 #include <Box2D\Box2D.h>
 
 Birb::Birb(Scene& scene, float posX, float posY)
+	:
+	Object(scene)
 {
 	// Bird color
 	r = 0;
@@ -41,6 +43,8 @@ void Birb::startContact()
 	r = 255;
 	g = 0;
 	b = 0;
+
+	m_gameScene.addToKillList(this);
 }
 
 void Birb::endContact()

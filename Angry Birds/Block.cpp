@@ -8,7 +8,9 @@
 Block::Block(Scene& scene, float posX, float posY, float width, float height)
 	:
 	m_width(width),
-	m_height(height)
+	m_height(height),
+	Object(scene)
+
 {
 	m_bodyDef.type = b2_dynamicBody;
 	m_bodyDef.position.Set(posX, posY);

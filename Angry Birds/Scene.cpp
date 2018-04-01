@@ -30,6 +30,8 @@ void Scene::update()
 	static const int32 positionIterations = 2;
 
 	m_world->Step(timeStep, velocityIterations, positionIterations);
+
+	removeObjects();
 }
 
 b2Body* Scene::addObject(std::unique_ptr<Object> obj)
@@ -40,10 +42,33 @@ b2Body* Scene::addObject(std::unique_ptr<Object> obj)
 	return body;
 }
 
+void Scene::removeObjects()
+{
+	if (m_killList.size() != 0)
+	{
+		for (auto& kill : m_killList)
+		{
+			m_world->DestroyBody(&kill->getBody());
+			m_objs.erase(std::remove_if(m_objs.begin(), m_objs.end(), 
+				[kill](std::unique_ptr<Object> &obj) {return obj.get() == kill; }),
+				m_objs.end());
+		}
+
+		m_killList.clear();
+	}
+}
+
+void Scene::addToKillList(Object* toKill)
+{
+	m_killList.push_back(toKill);
+}
+
 void Scene::draw(NVGcontext* vg)
 {
 	for (auto& obj : m_objs) {
-		obj->draw(vg);
+
+		if(obj)
+			obj->draw(vg);
 	}
 }
 
