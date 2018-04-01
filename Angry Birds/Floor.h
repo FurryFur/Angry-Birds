@@ -15,6 +15,9 @@ public:
 	Floor(const Floor&) = delete;
 	Floor(Floor&&) = delete;
 
+	void startContact() override;
+	void endContact() override;
+
 	void draw(NVGcontext*) const override;
 	const b2BodyDef& Floor::getBodyDef() const override;
 

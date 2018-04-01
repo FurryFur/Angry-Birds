@@ -35,6 +35,16 @@ const b2BodyDef& Block::getBodyDef() const
 	return m_bodyDef;
 }
 
+void Block::startContact()
+{
+	//delete this;
+}
+
+void Block::endContact()
+{
+
+}
+
 void Block::draw(NVGcontext* vg) const
 {
 	float pixelWidth = m_width * Scene::s_kPixelsPerMeter;

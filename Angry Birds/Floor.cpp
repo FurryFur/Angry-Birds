@@ -28,6 +28,16 @@ const b2BodyDef& Floor::getBodyDef() const
 	return m_bodyDef;
 }
 
+void Floor::startContact()
+{
+	// hit floor
+}
+
+void Floor::endContact()
+{
+	// floor no hit
+}
+
 void Floor::draw(NVGcontext* vg) const
 {
 	float pixelWidth = m_width * Scene::s_kPixelsPerMeter;

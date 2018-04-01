@@ -95,7 +95,7 @@ int main()
 	// Make some Birbs
 	new Birb(g_scene, 1, 1);
 	new Floor(g_scene, 2.1f, 10, 3, 1);
-	//new Block(g_scene, 2, 1, 1, 1);
+	new Block(g_scene, 3, 1, 1, 1);
 	 
 	while (!glfwWindowShouldClose(window)) {
 		int winWidth, winHeight;

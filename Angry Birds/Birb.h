@@ -18,8 +18,8 @@ public:
 	void draw(NVGcontext*) const override;
 	const b2BodyDef& Birb::getBodyDef() const override;
 
-	void startContact();
-	void endContact();
+	void startContact() override;
+	void endContact() override;
 
 private:
 	b2Body* m_body;

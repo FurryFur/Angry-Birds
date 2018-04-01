@@ -15,6 +15,9 @@ public:
 	Block(const Block&) = delete;
 	Block(Block&&) = delete;
 
+	void startContact() override;
+	void endContact() override;
+
 	void draw(NVGcontext*) const override;
 	const b2BodyDef& Block::getBodyDef() const override;
 	

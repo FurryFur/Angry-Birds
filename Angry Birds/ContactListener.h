@@ -2,7 +2,7 @@
 
 #include <Box2D\Box2D.h>
 
-#include "Birb.h"
+#include "Object.h"
 
 class ContactListener : public b2ContactListener
 {
