@@ -140,8 +140,10 @@
   <ItemGroup>
     <ClCompile Include="..\ext\glad\src\glad.c" />
     <ClCompile Include="Birb.cpp" />
+    <ClCompile Include="Block.cpp" />
     <ClCompile Include="Capsule.cpp" />
     <ClCompile Include="CapsuleFactory.cpp" />
+    <ClCompile Include="ContactListener.cpp" />
     <ClCompile Include="Floor.cpp" />
     <ClCompile Include="Line.cpp" />
     <ClCompile Include="main.cpp" />
@@ -149,8 +151,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Birb.h" />
+    <ClInclude Include="Block.h" />
     <ClInclude Include="Capsule.h" />
     <ClInclude Include="CapsuleFactory.h" />
+    <ClInclude Include="ContactListener.h" />
     <ClInclude Include="Floor.h" />
     <ClInclude Include="Line.h" />
     <ClInclude Include="Object.h" />

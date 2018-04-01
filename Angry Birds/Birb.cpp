@@ -7,6 +7,11 @@
 
 Birb::Birb(Scene& scene, float posX, float posY)
 {
+	// Bird color
+	r = 0;
+	g = 255;
+	b = 0;
+
 	m_bodyDef.type = b2_dynamicBody;
 	m_bodyDef.position.Set(posX, posY);
 	m_body = scene.addObject(std::unique_ptr<Object>(this));
@@ -23,6 +28,8 @@ Birb::Birb(Scene& scene, float posX, float posY)
 	fixtureDef.restitution = 0.5f;
 
 	m_body->CreateFixture(&fixtureDef);
+
+	m_body->SetUserData(this);
 }
 
 Birb::~Birb()
@@ -34,9 +41,23 @@ const b2BodyDef& Birb::getBodyDef() const
 	return m_bodyDef;
 }
 
+void Birb::startContact()
+{
+	r = 255;
+	g = 0;
+	b = 0;
+}
+
+void Birb::endContact()
+{
+	r = 0;
+	g = 255;
+	b = 0;
+}
+
 void Birb::draw(NVGcontext* vg) const
 {
-	nvgFillColor(vg, nvgRGBA(255, 192, 0, 128));
+	nvgFillColor(vg, nvgRGBA(r, g, b, 128));
 	nvgStrokeColor(vg, nvgRGBA(255, 192, 0, 255));
 
 	nvgBeginPath(vg);
