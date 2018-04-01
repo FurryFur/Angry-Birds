@@ -21,6 +21,7 @@
 #include "Floor.h"
 
 #include "Scene.h"
+#include "Scene1.h"
 
 #include <Box2D\Box2D.h>
 #include <glm\glm.hpp>
@@ -30,11 +31,11 @@
 #define NANOVG_GL3_IMPLEMENTATION
 #include <nanovg_gl.h>
 
+#include <memory>
 
 using namespace glm;
 
-Scene g_scene;
-
+std::unique_ptr<Scene> g_scene;
 
 void errorcb(int error, const char* desc)
 {
@@ -49,6 +50,7 @@ void key(GLFWwindow* window, int key, int scancode, int action, int mods)
 
 void mouseBtnCallback(GLFWwindow* window, int button, int action, int mods) 
 {
+
 }
 
 int main()
@@ -91,9 +93,8 @@ int main()
 		return -1;
 	}
 
-	// Make some Birbs
-	new Birb(g_scene, 1, 1);
-	new Floor(g_scene, 2.1f, 10, 2, 1);
+	// Create a scene with some Birbs
+	g_scene = std::unique_ptr<Scene>(new Scene1());
 	 
 	while (!glfwWindowShouldClose(window)) {
 		int winWidth, winHeight;
@@ -112,8 +113,8 @@ int main()
 
 		nvgBeginFrame(vg, winWidth, winHeight, pxRatio);
 
-		g_scene.update();
-		g_scene.draw(vg);
+		g_scene->update();
+		g_scene->draw(vg);
 
 		nvgEndFrame(vg);
 
