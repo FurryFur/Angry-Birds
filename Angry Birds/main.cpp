@@ -17,9 +17,8 @@
 //
 
 
-#include "Capsule.h"
-#include "CapsuleFactory.h"
-#include "Line.h"
+#include "Birb.h"
+#include "Scene.h"
 
 #include <Box2D\Box2D.h>
 #include <glm\glm.hpp>
@@ -45,9 +44,7 @@ void key(GLFWwindow* window, int key, int scancode, int action, int mods)
 
 void mouseBtnCallback(GLFWwindow* window, int button, int action, int mods) 
 {
-	double mousex, mousey;
-	glfwGetCursorPos(window, &mousex, &mousey);
-	CapsuleFactory::instance().onClick(button, action, mousex, mousey);
+
 }
 
 int main()
@@ -90,6 +87,9 @@ int main()
 		return -1;
 	}
 
+	// Make some Birbs
+	Scene scene;
+	new Birb(scene, 100, 100);
 
 	while (!glfwWindowShouldClose(window)) {
 		int winWidth, winHeight;
@@ -108,15 +108,8 @@ int main()
 
 		nvgBeginFrame(vg, winWidth, winHeight, pxRatio);
 
-		const std::vector<Capsule>& capsuleList = CapsuleFactory::instance().getCapsuleList();
-		for (const Capsule& capsule : capsuleList) {
-			capsule.draw(vg);
-		}
-
-		if (capsuleList.size() == 2) {
-			Line shortestLine = capsuleList[0].getShortestLineTo(capsuleList[1]);
-			shortestLine.draw(vg);
-		}
+		scene.update();
+		scene.draw(vg);
 
 		nvgEndFrame(vg);
 
