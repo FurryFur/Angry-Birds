@@ -21,6 +21,7 @@
 #include "CapsuleFactory.h"
 #include "Line.h"
 
+#include <Box2D\Box2D.h>
 #include <glm\glm.hpp>
 #include <glad\glad.h>
 #include <GLFW\glfw3.h>

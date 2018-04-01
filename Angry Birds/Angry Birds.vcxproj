@@ -70,19 +70,19 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>$(SolutionDir)ext\glfw\include;$(SolutionDir)ext\glad\include;$(SolutionDir)ext\nanovg\src;$(SolutionDir)ext\glm;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)Box2D;$(SolutionDir)ext\glfw\include;$(SolutionDir)ext\glad\include;$(SolutionDir)ext\nanovg\src;$(SolutionDir)ext\glm;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)$(IntDir);$(SolutionDir)ext\glfw_buildx86\lib_debug;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>$(SolutionDir)ext\glfw\include;$(SolutionDir)ext\glad\include;$(SolutionDir)ext\nanovg\src;$(SolutionDir)ext\glm;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)Box2D;$(SolutionDir)ext\glfw\include;$(SolutionDir)ext\glad\include;$(SolutionDir)ext\nanovg\src;$(SolutionDir)ext\glm;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)$(IntDir);$(SolutionDir)ext\glfw_buildx86\lib_release;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>$(SolutionDir)ext\glfw\include;$(SolutionDir)ext\glad\include;$(SolutionDir)ext\nanovg\src;$(SolutionDir)ext\glm;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)Box2D;$(SolutionDir)ext\glfw\include;$(SolutionDir)ext\glad\include;$(SolutionDir)ext\nanovg\src;$(SolutionDir)ext\glm;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)$(IntDir);$(SolutionDir)ext\glfw_buildx64\lib_debug;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>$(SolutionDir)ext\glfw\include;$(SolutionDir)ext\glad\include;$(SolutionDir)ext\nanovg\src;$(SolutionDir)ext\glm;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)Box2D;$(SolutionDir)ext\glfw\include;$(SolutionDir)ext\glad\include;$(SolutionDir)ext\nanovg\src;$(SolutionDir)ext\glm;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)$(IntDir);$(SolutionDir)ext\glfw_buildx64\lib_release;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
