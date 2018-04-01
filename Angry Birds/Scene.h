@@ -5,7 +5,7 @@
 
 class b2World;
 class b2Body;
-class Birb;
+class Object;
 struct NVGcontext;
 
 class Scene
@@ -15,14 +15,14 @@ public:
 	~Scene();
 
 	void update();
-	b2Body* addObject(std::unique_ptr<Birb>);
+	b2Body* addObject(std::unique_ptr<Object>);
 	void draw(NVGcontext*);
 
 	static const float s_kPixelsPerMeter;
 	static const float s_kGravity;
 
 private:
-	std::vector<std::unique_ptr<Birb>> m_birbs;
+	std::vector<std::unique_ptr<Object>> m_birbs;
 	std::unique_ptr<b2World> m_world;
 };
 

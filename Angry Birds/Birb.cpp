@@ -9,7 +9,7 @@ Birb::Birb(Scene& scene, float posX, float posY)
 {
 	m_bodyDef.type = b2_dynamicBody;
 	m_bodyDef.position.Set(posX, posY);
-	m_body = scene.addObject(std::unique_ptr<Birb>(this));
+	m_body = scene.addObject(std::unique_ptr<Object>(this));
 
 	b2PolygonShape dynamicBox;
 	dynamicBox.SetAsBox(1.0f, 1.0f);
@@ -26,12 +26,12 @@ Birb::~Birb()
 {
 }
 
-const b2BodyDef& Birb::getBodyDef()
+const b2BodyDef& Birb::getBodyDef() const
 {
 	return m_bodyDef;
 }
 
-void Birb::draw(NVGcontext* vg)
+void Birb::draw(NVGcontext* vg) const
 {
 	nvgFillColor(vg, nvgRGBA(255, 192, 0, 128));
 	nvgStrokeColor(vg, nvgRGBA(255, 192, 0, 255));

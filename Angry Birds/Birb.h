@@ -1,20 +1,22 @@
 #pragma once
 
+#include "Object.h"
+
 #include <Box2D\Box2D.h>
 
 class Scene;
 struct NVGcontext;
 
-class Birb
+class Birb : public Object
 {
 public:
 	Birb(Scene& scene, float posX, float posY);
-	~Birb();
+	virtual ~Birb() override;
 	Birb(const Birb&) = delete;
 	Birb(Birb&&) = delete;
 
-	void draw(NVGcontext*);
-	const b2BodyDef& Birb::getBodyDef();
+	void draw(NVGcontext*) const override;
+	const b2BodyDef& Birb::getBodyDef() const override;
 
 private:
 	b2Body* m_body;

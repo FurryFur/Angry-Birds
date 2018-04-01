@@ -30,10 +30,10 @@ void Scene::update()
 	m_world->Step(timeStep, velocityIterations, positionIterations);
 }
 
-b2Body* Scene::addObject(std::unique_ptr<Birb> birb)
+b2Body* Scene::addObject(std::unique_ptr<Object> obj)
 {
-	b2Body* body = m_world->CreateBody(&birb->getBodyDef());
-	m_birbs.push_back(std::move(birb));
+	b2Body* body = m_world->CreateBody(&obj->getBodyDef());
+	m_birbs.push_back(std::move(obj));
 
 	return body;
 }
