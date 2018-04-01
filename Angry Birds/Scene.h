@@ -11,8 +11,9 @@ struct NVGcontext;
 class Scene
 {
 public:
-	Scene();
-	~Scene();
+	virtual ~Scene();
+	Scene(const Scene&) = delete;
+	Scene(Scene&&) = delete;
 
 	void update();
 	b2Body* addObject(std::unique_ptr<Object>);
@@ -21,7 +22,9 @@ public:
 	static const float s_kPixelsPerMeter;
 	static const float s_kGravity;
 
-private:
+protected:
+	Scene();
+
 	std::vector<std::unique_ptr<Object>> m_objs;
 	std::unique_ptr<b2World> m_world;
 };

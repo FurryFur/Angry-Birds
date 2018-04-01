@@ -19,11 +19,8 @@ public:
 	void endContact() override;
 
 	void draw(NVGcontext*) const override;
-	const b2BodyDef& Floor::getBodyDef() const override;
 
 private:
-	b2Body * m_body;
-	b2BodyDef m_bodyDef;
 	float m_height;
 	float m_width;
 };
