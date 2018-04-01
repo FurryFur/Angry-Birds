@@ -15,8 +15,8 @@ public:
 	const b2BodyDef& getBodyDef() const;
 	b2Body& getBody();
 
-	virtual void startContact() = 0;
-	virtual void endContact() = 0;
+	virtual void startContact(Object*) = 0;
+	virtual void endContact(Object*) = 0;
 
 protected:
 	b2Body * m_body;

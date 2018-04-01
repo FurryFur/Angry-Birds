@@ -15,8 +15,8 @@ public:
 	Block(const Block&) = delete;
 	Block(Block&&) = delete;
 
-	void startContact() override;
-	void endContact() override;
+	void startContact(Object*) override;
+	void endContact(Object*) override;
 
 	void draw(NVGcontext*) const override;
 

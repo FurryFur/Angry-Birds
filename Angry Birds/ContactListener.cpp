@@ -4,28 +4,30 @@
 
 void ContactListener::BeginContact(b2Contact * contact)
 {
+	void* bodyUserDataA = contact->GetFixtureA()->GetBody()->GetUserData();
+	void* bodyUserDataB = contact->GetFixtureB()->GetBody()->GetUserData();
+
 	//check if fixture A was a birb
-	void* bodyUserData = contact->GetFixtureA()->GetBody()->GetUserData();
-	if (bodyUserData)
-		static_cast<Object*>(bodyUserData)->startContact();
+	if (bodyUserDataA)
+		static_cast<Object*>(bodyUserDataA)->startContact(static_cast<Object*>(bodyUserDataB));
 
 	//check if fixture B was a birb
-	bodyUserData = contact->GetFixtureB()->GetBody()->GetUserData();
-	if (bodyUserData)
-		static_cast<Object*>(bodyUserData)->startContact();
+	if (bodyUserDataB)
+		static_cast<Object*>(bodyUserDataB)->startContact(static_cast<Object*>(bodyUserDataA));
 }
 
 void ContactListener::EndContact(b2Contact* contact)
 {
+	void* bodyUserDataA = contact->GetFixtureA()->GetBody()->GetUserData();
+	void* bodyUserDataB = contact->GetFixtureB()->GetBody()->GetUserData();
+
 	//check if fixture A was a birb
-	void* bodyUserData = contact->GetFixtureA()->GetBody()->GetUserData();
-	if (bodyUserData)
-		static_cast<Object*>(bodyUserData)->endContact();
+	if (bodyUserDataA)
+		static_cast<Object*>(bodyUserDataA)->endContact(static_cast<Object*>(bodyUserDataB));
 
 	//check if fixture B was a birb
-	bodyUserData = contact->GetFixtureB()->GetBody()->GetUserData();
-	if (bodyUserData)
-		static_cast<Object*>(bodyUserData)->endContact();
+	if (bodyUserDataB)
+		static_cast<Object*>(bodyUserDataB)->endContact(static_cast<Object*>(bodyUserDataA));
 
 }
 

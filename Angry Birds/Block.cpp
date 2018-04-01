@@ -1,4 +1,5 @@
 #include "Block.h"
+#include "Birb.h"
 
 #include "Scene.h"
 
@@ -26,20 +27,23 @@ Block::Block(Scene& scene, float posX, float posY, float width, float height)
 	fixtureDef.restitution = 0.5f;
 
 	m_body->CreateFixture(&fixtureDef);
+
+	m_body->SetUserData(this);
 }
 
 Block::~Block()
 {
 }
 
-void Block::startContact()
+void Block::startContact(Object* other)
 {
 	//delete this;
+	if(dynamic_cast<Birb*>(other) != nullptr)
+		m_gameScene.addToKillList(this);
 }
 
-void Block::endContact()
+void Block::endContact(Object* other)
 {
-
 }
 
 void Block::draw(NVGcontext* vg) const
