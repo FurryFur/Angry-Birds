@@ -19,6 +19,7 @@
 
 #include "Birb.h"
 #include "Floor.h"
+#include "Block.h"
 
 #include "Scene.h"
 #include "Scene1.h"
