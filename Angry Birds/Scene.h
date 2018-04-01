@@ -20,7 +20,7 @@ public:
 
 private:
 	std::vector<std::unique_ptr<Birb>> m_birbs;
-	std::unique_ptr<b2World> m_world;
 	const float m_kGravity;
+	std::unique_ptr<b2World> m_world;
 };
 
