@@ -23,11 +23,6 @@ Floor::~Floor()
 {
 }
 
-const b2BodyDef& Floor::getBodyDef() const
-{
-	return m_bodyDef;
-}
-
 void Floor::startContact()
 {
 	// hit floor

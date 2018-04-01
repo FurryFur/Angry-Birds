@@ -30,11 +30,6 @@ Block::~Block()
 {
 }
 
-const b2BodyDef& Block::getBodyDef() const
-{
-	return m_bodyDef;
-}
-
 void Block::startContact()
 {
 	//delete this;

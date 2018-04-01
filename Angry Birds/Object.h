@@ -13,12 +13,13 @@ public:
 	const b2BodyDef& getBodyDef() const;
 	b2Body& getBody();
 
-protected:
-	b2Body* m_body;
-	b2BodyDef m_bodyDef;
-	virtual const b2BodyDef& getBodyDef() const = 0;
-
 	virtual void startContact() = 0;
 	virtual void endContact() = 0;
+
+protected:
+	b2Body * m_body;
+	b2BodyDef m_bodyDef;
 };
+
+
 
