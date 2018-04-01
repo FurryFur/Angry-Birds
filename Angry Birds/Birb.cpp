@@ -37,7 +37,12 @@ void Birb::draw(NVGcontext* vg)
 	nvgStrokeColor(vg, nvgRGBA(255, 192, 0, 255));
 
 	nvgBeginPath(vg);
-	nvgCircle(vg, m_body->GetPosition().x, m_body->GetPosition().y, 10);
+	nvgCircle(
+		vg,
+		m_body->GetPosition().x * Scene::s_kPixelsPerMeter,
+		m_body->GetPosition().y * Scene::s_kPixelsPerMeter,
+		10
+	);
 	nvgFill(vg);
 	nvgStroke(vg);
 }

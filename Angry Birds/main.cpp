@@ -67,7 +67,7 @@ int main()
 #endif
 	glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, 1);
 
-	window = glfwCreateWindow(1000, 600, "NanoVG", NULL, NULL);
+	window = glfwCreateWindow(1600, 800, "NanoVG", NULL, NULL);
 	//	window = glfwCreateWindow(1000, 600, "NanoVG", glfwGetPrimaryMonitor(), NULL);
 	if (!window) {
 		glfwTerminate();
@@ -89,7 +89,7 @@ int main()
 
 	// Make some Birbs
 	Scene scene;
-	new Birb(scene, 100, 100);
+	new Birb(scene, 1, 1);
 
 	while (!glfwWindowShouldClose(window)) {
 		int winWidth, winHeight;
