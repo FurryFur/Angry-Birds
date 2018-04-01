@@ -22,7 +22,7 @@ public:
 	static const float s_kGravity;
 
 private:
-	std::vector<std::unique_ptr<Object>> m_birbs;
+	std::vector<std::unique_ptr<Object>> m_objs;
 	std::unique_ptr<b2World> m_world;
 };
 

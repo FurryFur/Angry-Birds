@@ -36,6 +36,9 @@
     <ClCompile Include="Birb.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Floor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Capsule.h">
@@ -54,6 +57,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Object.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Floor.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

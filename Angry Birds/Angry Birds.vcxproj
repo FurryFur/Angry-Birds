@@ -93,7 +93,7 @@
       <PreprocessorDefinitions>GLFW_INCLUDE_NONE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>NanoVG.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>NanoVG.lib;glfw3.lib;Box2D.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -142,6 +142,7 @@
     <ClCompile Include="Birb.cpp" />
     <ClCompile Include="Capsule.cpp" />
     <ClCompile Include="CapsuleFactory.cpp" />
+    <ClCompile Include="Floor.cpp" />
     <ClCompile Include="Line.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Scene.cpp" />
@@ -150,6 +151,7 @@
     <ClInclude Include="Birb.h" />
     <ClInclude Include="Capsule.h" />
     <ClInclude Include="CapsuleFactory.h" />
+    <ClInclude Include="Floor.h" />
     <ClInclude Include="Line.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="Scene.h" />

@@ -33,14 +33,14 @@ void Scene::update()
 b2Body* Scene::addObject(std::unique_ptr<Object> obj)
 {
 	b2Body* body = m_world->CreateBody(&obj->getBodyDef());
-	m_birbs.push_back(std::move(obj));
+	m_objs.push_back(std::move(obj));
 
 	return body;
 }
 
 void Scene::draw(NVGcontext* vg)
 {
-	for (auto& birb : m_birbs) {
-		birb->draw(vg);
+	for (auto& obj : m_objs) {
+		obj->draw(vg);
 	}
 }

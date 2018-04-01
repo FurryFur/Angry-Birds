@@ -11,13 +11,14 @@ Birb::Birb(Scene& scene, float posX, float posY)
 	m_bodyDef.position.Set(posX, posY);
 	m_body = scene.addObject(std::unique_ptr<Object>(this));
 
-	b2PolygonShape dynamicBox;
-	dynamicBox.SetAsBox(1.0f, 1.0f);
+	b2CircleShape dynamicBox;
+	dynamicBox.m_radius = 1.0f / Scene::s_kPixelsPerMeter;
 
 	b2FixtureDef fixtureDef;
 	fixtureDef.shape = &dynamicBox;
 	fixtureDef.density = 1.0f;
 	fixtureDef.friction = 0.3f;
+	fixtureDef.restitution = 0.5f;
 
 	m_body->CreateFixture(&fixtureDef);
 }

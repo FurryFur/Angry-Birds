@@ -18,6 +18,8 @@
 
 
 #include "Birb.h"
+#include "Floor.h"
+
 #include "Scene.h"
 
 #include <Box2D\Box2D.h>
@@ -90,6 +92,7 @@ int main()
 	// Make some Birbs
 	Scene scene;
 	new Birb(scene, 1, 1);
+	new Floor(scene, 1, 10);
 
 	while (!glfwWindowShouldClose(window)) {
 		int winWidth, winHeight;
