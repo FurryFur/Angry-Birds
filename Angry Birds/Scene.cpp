@@ -79,4 +79,6 @@ Birb* Scene::getCurrentBirb()
 		if (birb)
 			return birb;
 	}
+
+	return nullptr;
 }
