@@ -21,5 +21,6 @@ public:
 private:
 	b2Body* m_body;
 	b2BodyDef m_bodyDef;
+	float m_birbRadius;
 };
 

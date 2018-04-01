@@ -33,6 +33,9 @@
 
 using namespace glm;
 
+Scene g_scene;
+
+
 void errorcb(int error, const char* desc)
 {
 	printf("GLFW error %d: %s\n", error, desc);
@@ -46,7 +49,6 @@ void key(GLFWwindow* window, int key, int scancode, int action, int mods)
 
 void mouseBtnCallback(GLFWwindow* window, int button, int action, int mods) 
 {
-
 }
 
 int main()
@@ -90,10 +92,9 @@ int main()
 	}
 
 	// Make some Birbs
-	Scene scene;
-	new Birb(scene, 1, 1);
-	new Floor(scene, 1, 10);
-
+	new Birb(g_scene, 1, 1);
+	new Floor(g_scene, 2.1f, 10, 2, 1);
+	 
 	while (!glfwWindowShouldClose(window)) {
 		int winWidth, winHeight;
 		int fbWidth, fbHeight;
@@ -111,8 +112,8 @@ int main()
 
 		nvgBeginFrame(vg, winWidth, winHeight, pxRatio);
 
-		scene.update();
-		scene.draw(vg);
+		g_scene.update();
+		g_scene.draw(vg);
 
 		nvgEndFrame(vg);
 

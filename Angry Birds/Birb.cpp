@@ -11,8 +11,10 @@ Birb::Birb(Scene& scene, float posX, float posY)
 	m_bodyDef.position.Set(posX, posY);
 	m_body = scene.addObject(std::unique_ptr<Object>(this));
 
+	m_birbRadius = 1.0f;
+
 	b2CircleShape dynamicBox;
-	dynamicBox.m_radius = 1.0f / Scene::s_kPixelsPerMeter;
+	dynamicBox.m_radius = m_birbRadius;
 
 	b2FixtureDef fixtureDef;
 	fixtureDef.shape = &dynamicBox;
@@ -42,7 +44,7 @@ void Birb::draw(NVGcontext* vg) const
 		vg,
 		m_body->GetPosition().x * Scene::s_kPixelsPerMeter,
 		m_body->GetPosition().y * Scene::s_kPixelsPerMeter,
-		10
+		m_birbRadius * Scene::s_kPixelsPerMeter
 	);
 	nvgFill(vg);
 	nvgStroke(vg);

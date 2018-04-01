@@ -10,7 +10,7 @@ struct NVGcontext;
 class Floor : public Object
 {
 public:
-	Floor(Scene& scene, float posX, float posY);
+	Floor(Scene& scene, float posX, float posY, float width, float height);
 	virtual ~Floor() override;
 	Floor(const Floor&) = delete;
 	Floor(Floor&&) = delete;
@@ -21,4 +21,6 @@ public:
 private:
 	b2Body * m_body;
 	b2BodyDef m_bodyDef;
+	float m_height;
+	float m_width;
 };
