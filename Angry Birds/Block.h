@@ -16,13 +16,8 @@ public:
 	Block(Block&&) = delete;
 
 	void draw(NVGcontext*) const override;
-	const b2BodyDef& Block::getBodyDef() const override;
-	
 
 private:
-	b2Body * m_body;
-	b2BodyDef m_bodyDef;
-
 	float m_width;
 	float m_height;
 };

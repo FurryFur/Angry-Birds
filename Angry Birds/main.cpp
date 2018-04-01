@@ -51,7 +51,8 @@ void key(GLFWwindow* window, int key, int scancode, int action, int mods)
 
 void mouseBtnCallback(GLFWwindow* window, int button, int action, int mods) 
 {
-
+	/*Birb* birb = g_scene.getCurrentBirb();
+	birb.*/
 }
 
 int main()

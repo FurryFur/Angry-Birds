@@ -36,11 +36,6 @@ Birb::~Birb()
 {
 }
 
-const b2BodyDef& Birb::getBodyDef() const
-{
-	return m_bodyDef;
-}
-
 void Birb::startContact()
 {
 	r = 255;
