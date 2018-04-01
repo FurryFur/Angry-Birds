@@ -17,6 +17,8 @@ public:
 
 	void update();
 	b2Body* addObject(std::unique_ptr<Object>);
+	void removeObjects();
+	void addToKillList(Object*);
 	void draw(NVGcontext*);
 
 	static const float s_kPixelsPerMeter;
@@ -27,5 +29,6 @@ protected:
 
 	std::vector<std::unique_ptr<Object>> m_objs;
 	std::unique_ptr<b2World> m_world;
+	std::vector<Object*> m_killList;
 };
 
