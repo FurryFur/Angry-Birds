@@ -7,6 +7,7 @@ class b2World;
 class b2Body;
 class Object;
 struct NVGcontext;
+class Birb;
 
 class Scene
 {
@@ -18,6 +19,8 @@ public:
 	void update();
 	b2Body* addObject(std::unique_ptr<Object>);
 	void draw(NVGcontext*);
+
+	Birb* getCurrentBirb();
 
 	static const float s_kPixelsPerMeter;
 	static const float s_kGravity;

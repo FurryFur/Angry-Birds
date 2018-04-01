@@ -46,3 +46,12 @@ void Scene::draw(NVGcontext* vg)
 		obj->draw(vg);
 	}
 }
+
+Birb* Scene::getCurrentBirb()
+{
+	for (auto& obj : m_objs) {
+		Birb* birb = dynamic_cast<Birb*>(obj.get());
+		if (birb)
+			return birb;
+	}
+}
