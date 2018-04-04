@@ -37,6 +37,7 @@
 using namespace glm;
 
 std::unique_ptr<Scene> g_scene;
+Birb* g_grabbedBirb = nullptr;
 
 void errorcb(int error, const char* desc)
 {
@@ -49,12 +50,39 @@ void key(GLFWwindow* window, int key, int scancode, int action, int mods)
 		glfwSetWindowShouldClose(window, GL_TRUE);
 }
 
+// Make grabbed birb follow mouse position
+void mouseMoveCallback(GLFWwindow* window, double mousex, double mousey)
+{
+	if (g_grabbedBirb) {
+		mousex /= Scene::s_kPixelsPerMeter;
+		mousey /= Scene::s_kPixelsPerMeter;
+
+		auto& body = g_grabbedBirb->getBody();
+		body.SetTransform(b2Vec2(mousex, mousey), body.GetAngle());
+		body.SetLinearVelocity(b2Vec2(0, 0));
+		body.SetAngularVelocity(0);
+	}
+}
+
+// Grab birb on mouse down, release on mouse up
 void mouseBtnCallback(GLFWwindow* window, int button, int action, int mods) 
 {
-	Birb* birb = g_scene->getCurrentBirb();
-	if (birb) {
-		auto& body = birb->getBody();
-		body.SetActive(!body.IsActive());
+	if (action == GLFW_PRESS) {
+		Birb* birb = g_scene->getCurrentBirb();
+		if (birb) {
+			// Make birb follow mouse 
+			birb->getBody().SetActive(false);
+			g_grabbedBirb = birb;
+
+			double mousex, mousey;
+			glfwGetCursorPos(window, &mousex, &mousey);
+			mouseMoveCallback(window, mousex, mousey);
+		}
+	}
+
+	if (action == GLFW_RELEASE) {
+		g_grabbedBirb->getBody().SetActive(true);
+		g_grabbedBirb = nullptr;
 	}
 }
 
@@ -86,6 +114,7 @@ int main()
 	}
 
 	glfwSetMouseButtonCallback(window, mouseBtnCallback);
+	glfwSetCursorPosCallback(window, mouseMoveCallback);
 	glfwSetKeyCallback(window, key);
 
 	glfwMakeContextCurrent(window);
