@@ -17,8 +17,8 @@ public:
 
 	void draw(NVGcontext*) const override;
 
-	void startContact() override;
-	void endContact() override;
+	void startContact(Object*) override;
+	void endContact(Object*) override;
 
 private:
 	

@@ -25,12 +25,12 @@ Floor::~Floor()
 {
 }
 
-void Floor::startContact()
+void Floor::startContact(Object* other)
 {
 	// hit floor
 }
 
-void Floor::endContact()
+void Floor::endContact(Object* other)
 {
 	// floor no hit
 }

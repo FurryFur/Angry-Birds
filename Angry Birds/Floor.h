@@ -15,8 +15,8 @@ public:
 	Floor(const Floor&) = delete;
 	Floor(Floor&&) = delete;
 
-	void startContact() override;
-	void endContact() override;
+	void startContact(Object*) override;
+	void endContact(Object*) override;
 
 	void draw(NVGcontext*) const override;
 

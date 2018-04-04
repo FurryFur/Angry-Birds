@@ -38,16 +38,14 @@ Birb::~Birb()
 {
 }
 
-void Birb::startContact()
+void Birb::startContact(Object* other)
 {
 	r = 255;
 	g = 0;
 	b = 0;
-
-	m_gameScene.addToKillList(this);
 }
 
-void Birb::endContact()
+void Birb::endContact(Object* other)
 {
 	r = 0;
 	g = 255;
