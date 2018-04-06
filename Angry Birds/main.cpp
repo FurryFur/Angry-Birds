@@ -20,6 +20,7 @@
 #include "Birb.h"
 #include "Floor.h"
 #include "Block.h"
+#include "Utils.h"
 
 #include "Scene.h"
 #include "Scene1.h"
@@ -106,7 +107,7 @@ int main()
 #endif
 	glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, 1);
 
-	window = glfwCreateWindow(1600, 800, "NanoVG", NULL, NULL);
+	window = glfwCreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "NanoVG", NULL, NULL);
 	//	window = glfwCreateWindow(1000, 600, "NanoVG", glfwGetPrimaryMonitor(), NULL);
 	if (!window) {
 		glfwTerminate();

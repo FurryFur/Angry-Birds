@@ -38,8 +38,8 @@ Block::~Block()
 void Block::startContact(Object* other)
 {
 	//delete this;
-	if(dynamic_cast<Birb*>(other) != nullptr)
-		m_gameScene.addToKillList(this);
+	/*if(dynamic_cast<Birb*>(other) != nullptr)
+		m_gameScene.addToKillList(this);*/
 }
 
 void Block::endContact(Object* other)
@@ -51,17 +51,26 @@ void Block::draw(NVGcontext* vg) const
 	float pixelWidth = m_width * Scene::s_kPixelsPerMeter;
 	float pixelHeight = m_height * Scene::s_kPixelsPerMeter;
 
+	b2Vec2 pixelPosition = b2Vec2(m_body->GetPosition().x * Scene::s_kPixelsPerMeter, m_body->GetPosition().y * Scene::s_kPixelsPerMeter);
+
+	nvgSave(vg);
+
+	nvgTranslate(vg, pixelPosition.x, pixelPosition.y);
+	nvgRotate(vg, (m_body->GetAngle()));
+
 	nvgFillColor(vg, nvgRGBA(255, 192, 0, 128));
 	nvgStrokeColor(vg, nvgRGBA(255, 192, 0, 255));
 
 	nvgBeginPath(vg);
 	nvgRect(
 		vg,
-		m_body->GetPosition().x * Scene::s_kPixelsPerMeter - pixelWidth / 2,
-		m_body->GetPosition().y * Scene::s_kPixelsPerMeter - pixelHeight / 2,
+		-pixelWidth / 2,
+		-pixelHeight / 2,
 		pixelWidth,
 		pixelHeight
 	);
 	nvgFill(vg);
 	nvgStroke(vg);
+
+	nvgRestore(vg);
 }
