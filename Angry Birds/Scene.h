@@ -5,6 +5,8 @@
 
 class b2World;
 class b2Body;
+class b2Joint;
+
 class Object;
 struct NVGcontext;
 class Birb;
@@ -18,6 +20,7 @@ public:
 
 	void update();
 	b2Body* addObject(std::unique_ptr<Object>);
+	b2Joint* createJoint(b2Body*, b2Body*);
 	void removeObjects();
 	void addToKillList(Object*);
 	void draw(NVGcontext*);

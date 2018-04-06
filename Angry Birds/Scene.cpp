@@ -42,6 +42,19 @@ b2Body* Scene::addObject(std::unique_ptr<Object> obj)
 	return body;
 }
 
+b2Joint* Scene::createJoint(b2Body* m_bodyA, b2Body* m_bodyB)
+{
+	b2RevoluteJointDef revoluteJointDef;
+	revoluteJointDef.bodyA = m_bodyA;
+	revoluteJointDef.bodyB = m_bodyB;
+	revoluteJointDef.collideConnected = false;
+	revoluteJointDef.maxMotorTorque = 0.01f;
+	revoluteJointDef.localAnchorA.Set(0, 0);//the top right corner of the box
+	revoluteJointDef.localAnchorB.Set(0, 0);//center of the circle
+
+	return m_world->CreateJoint(&revoluteJointDef);;
+}
+
 void Scene::removeObjects()
 {
 	if (m_killList.size() != 0)
