@@ -148,6 +148,7 @@
     <ClCompile Include="Line.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Object.cpp" />
+    <ClCompile Include="Pig.cpp" />
     <ClCompile Include="RevoluteJoint.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Scene1.cpp" />
@@ -161,6 +162,7 @@
     <ClInclude Include="Floor.h" />
     <ClInclude Include="Line.h" />
     <ClInclude Include="Object.h" />
+    <ClInclude Include="Pig.h" />
     <ClInclude Include="RevoluteJoint.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Scene1.h" />
