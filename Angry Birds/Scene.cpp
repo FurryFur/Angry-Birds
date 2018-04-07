@@ -37,15 +37,36 @@ void Scene::update()
 	m_world->Step(timeStep, velocityIterations, positionIterations);
 
 	removeObjects();
+
+	checkAndEndLevel();
 }
 
 void Scene::checkAndEndLevel()
 {
-	if (m_pigCount <= 0)
-	{
+	if (m_pigCount <= 0) {
 		std::stringstream ss;
 		ss << "Level " << (m_levelNumber+1);
 		m_manager.loadNewScene(ss.str());
+	}
+	else if (m_nextFlingableBirbIdx >= m_birbs.size()) {
+		// If we have fired all birbs then check if all birbs are stationary
+		bool allSleeping = true;
+		for (Birb* birb : m_birbs) {
+			if (!birb->getBody().IsActive()) {
+				allSleeping = false;
+				break;
+			}
+
+			if (birb->getBody().IsAwake() && birb->getBody().GetLinearVelocity().Length() > 1.0f) {
+				allSleeping = false;
+				break;
+			}
+		}
+
+		// When all birbs are stationary restart the level
+		if (allSleeping) {
+			m_manager.restartLevel();
+		}
 	}
 }
 
@@ -88,7 +109,6 @@ void Scene::removeObjects()
 			if (dynamic_cast<Pig*>(kill) != nullptr)
 			{
 				m_pigCount--;
-				checkAndEndLevel();
 			}
 
 			m_world->DestroyBody(&kill->getBody());
@@ -113,6 +133,11 @@ void Scene::draw(NVGcontext* vg)
 		if(obj)
 			obj->draw(vg);
 	}
+}
+
+int Scene::getLevelNum() const
+{
+	return m_levelNumber;
 }
 
 Birb* Scene::getNextFlingableBirb()

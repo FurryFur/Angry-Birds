@@ -11,6 +11,7 @@ public:
 	Scene* getCurrentScene() const;
 	void addScene(std::unique_ptr<Scene>, std::string);
 	void loadNewScene(std::string);
+	void restartLevel();
 
 private:
 	Scene* m_currentScene;

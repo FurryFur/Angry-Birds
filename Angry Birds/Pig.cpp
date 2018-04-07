@@ -3,6 +3,8 @@
 
 #include "Scene.h"
 
+#include "Floor.h"
+
 #include <nanovg.h>
 #include <Box2D\Box2D.h>
 
@@ -18,6 +20,7 @@ Pig::Pig(Scene& scene, float posX, float posY, float radius)
 	m_PigRadius = radius;
 
 	m_bodyDef.type = b2_dynamicBody;
+	m_bodyDef.angularDamping = 0.75;
 	m_bodyDef.position.Set(posX, posY);
 	m_body = scene.addObject(std::unique_ptr<Object>(this));
 

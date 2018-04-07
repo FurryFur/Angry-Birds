@@ -20,6 +20,10 @@ public:
 	Scene(const Scene&) = delete;
 	Scene(Scene&&) = delete;
 
+	// Construct a new scene based on the derived scene type.
+	// Useful for restarting the level.
+	virtual std::unique_ptr<Scene> createNew() const = 0;
+
 	void update();
 	void checkAndEndLevel();
 
@@ -28,6 +32,7 @@ public:
 	void removeObjects();
 	void addToKillList(Object*);
 	void draw(NVGcontext*);
+	int getLevelNum() const;
 
 	Birb* getNextFlingableBirb();
 

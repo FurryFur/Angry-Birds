@@ -1,6 +1,9 @@
 #include "SceneManager.h"
 
+#include "Scene.h"
 
+#include <sstream>
+#include <memory>
 
 SceneManager::SceneManager()
 	: m_currentScene(nullptr)
@@ -28,4 +31,14 @@ void SceneManager::addScene(std::unique_ptr<Scene> newScene, std::string sceneNa
 void SceneManager::loadNewScene(std::string _newScene)
 {
 	m_currentScene = m_sceneMap[_newScene].get();
+}
+
+void SceneManager::restartLevel()
+{
+	std::unique_ptr<Scene> restartedScene = m_currentScene->createNew();
+	m_currentScene = restartedScene.get();
+
+	std::stringstream ss;
+	ss << "Level " << (m_currentScene->getLevelNum() + 1);
+	m_sceneMap[ss.str()] = std::move(restartedScene);
 }

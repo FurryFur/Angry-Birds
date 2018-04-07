@@ -12,13 +12,21 @@ Floor::Floor(Scene& scene, float posX, float posY, float width, float height)
 	Object(scene)
 
 {
+	m_bodyDef.type = b2_kinematicBody;
 	m_bodyDef.position.Set(posX, posY);
 	m_body = scene.addObject(std::unique_ptr<Object>(this));
 
 	b2PolygonShape groundBox;
 	groundBox.SetAsBox(m_width/2, m_height/2);
 
-	m_body->CreateFixture(&groundBox, 0.0f);
+	b2FixtureDef fixtureDef;
+	//fixtureDef.friction = 1.0f;
+	fixtureDef.density = 0.0f;
+	fixtureDef.shape = &groundBox;
+
+	m_body->CreateFixture(&fixtureDef);
+
+	m_body->SetUserData(this);
 }
 
 Floor::~Floor()

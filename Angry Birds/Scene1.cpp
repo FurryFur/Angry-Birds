@@ -36,3 +36,8 @@ Scene1::Scene1(SceneManager& _manager)
 Scene1::~Scene1()
 {
 }
+
+std::unique_ptr<Scene> Scene1::createNew() const
+{
+	return std::unique_ptr<Scene>(new Scene1(m_manager));
+}
