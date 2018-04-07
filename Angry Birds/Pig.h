@@ -19,7 +19,6 @@ public:
 
 	void startContact(Object*) override;
 	void endContact(Object*) override;
-	void postSolve(Object*, const b2ContactImpulse*) override;
 	void preSolve(b2Contact*, Object*, b2Vec2) override;
 
 private:
