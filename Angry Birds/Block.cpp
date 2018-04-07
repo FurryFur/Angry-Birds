@@ -19,7 +19,7 @@ Block::Block(Scene& scene, float posX, float posY, float width, float height, Sh
 		m_color = { 125,125,125 };
 	} 
 	else if (type == WOOD) {
-		m_color = { 60 * m_health,50 * m_health, 40 * m_health };
+		m_color = { 60.0f * m_health,50.0f * m_health, 40.0f * m_health };
 	}
 
 	m_bodyDef.type = b2_dynamicBody;
@@ -128,5 +128,5 @@ void Block::draw(NVGcontext* vg) const
 void Block::decreaseHealth()
 {
 	m_health--;
-	m_color = { 60 * m_health,50 * m_health, 40 * m_health };
+	m_color = { 60.0f * m_health,50.0f * m_health, 40.0f * m_health };
 }
