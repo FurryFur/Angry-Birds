@@ -13,10 +13,10 @@ const float Scene::s_kGravity = 10;
 Scene::Scene()
 	: m_world{ std::make_unique<b2World>(b2Vec2(0.0f, s_kGravity)) }
 {
-	ContactListener* newContact = new ContactListener;
+	m_contactListener = std::make_unique<ContactListener>();
 	m_world->SetAllowSleeping(true);
 	m_world->SetContinuousPhysics(true);
-	m_world->SetContactListener(newContact);
+	m_world->SetContactListener(m_contactListener.get());
 }
 
 
