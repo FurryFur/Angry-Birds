@@ -22,7 +22,8 @@ RevoluteJoint::RevoluteJoint(Scene& scene, float posX, float posY, b2Body* conne
 	fixtureDef.shape = &circleShape;
 
 	m_body = scene.addObject(std::unique_ptr<Object>(this));
-	scene.createJoint(m_body, connection);
+
+	scene.createRevoluteJoint(m_body, connection, m_body->GetPosition(), connection->GetPosition());
 }
 
 RevoluteJoint::~RevoluteJoint()

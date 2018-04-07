@@ -6,6 +6,7 @@
 class b2World;
 class b2Body;
 class b2Joint;
+class b2Vec2;
 
 class SceneManager;
 class ContactListener;
@@ -24,7 +25,10 @@ public:
 	void checkAndEndLevel();
 
 	b2Body* addObject(std::unique_ptr<Object>);
-	b2Joint* createJoint(b2Body*, b2Body*);
+	b2Joint* createRevoluteJoint(b2Body*, b2Body*, b2Vec2, b2Vec2);
+	b2Joint* createDistanceJoint(b2Body*, b2Body*, b2Vec2, b2Vec2, float);
+	b2Joint* createPrismaticJoint(b2Body*, b2Body*);
+
 	void removeObjects();
 	void addToKillList(Object*);
 	void draw(NVGcontext*);

@@ -66,17 +66,43 @@ b2Body* Scene::addObject(std::unique_ptr<Object> obj)
 	return body;
 }
 
-b2Joint* Scene::createJoint(b2Body* m_bodyA, b2Body* m_bodyB)
+b2Joint* Scene::createRevoluteJoint(b2Body* bodyA, b2Body* bodyB, b2Vec2 anchorA, b2Vec2 anchorB)
 {
 	b2RevoluteJointDef revoluteJointDef;
-	revoluteJointDef.bodyA = m_bodyA;
-	revoluteJointDef.bodyB = m_bodyB;
+	revoluteJointDef.bodyA = bodyA;
+	revoluteJointDef.bodyB = bodyB;
 	revoluteJointDef.collideConnected = false;
 	revoluteJointDef.maxMotorTorque = 0.01f;
-	revoluteJointDef.localAnchorA.Set(0, 0);//the top right corner of the box
-	revoluteJointDef.localAnchorB.Set(0, 0);//center of the circle
+	revoluteJointDef.localAnchorA.Set(0,0);
+	revoluteJointDef.localAnchorB.Set(0,0);
 
 	return m_world->CreateJoint(&revoluteJointDef);;
+}
+
+// TODO: MAKE MORE CUSTOMIZABLE
+b2Joint* Scene::createDistanceJoint(b2Body* bodyA, b2Body* bodyB, b2Vec2 anchorA, b2Vec2 anchorB, float length)
+{
+	b2DistanceJointDef distanceJointDef;
+	distanceJointDef.Initialize(bodyA, bodyB, bodyA->GetPosition(), bodyB->GetPosition());
+	distanceJointDef.frequencyHz = 4.0f;
+	distanceJointDef.dampingRatio = 0.1f;
+	distanceJointDef.collideConnected = true;
+	return m_world->CreateJoint(&distanceJointDef);
+}
+
+// TODO: MAKE MORE CUSTOMIZABLE
+b2Joint* Scene::createPrismaticJoint(b2Body* bodyA, b2Body* bodyB)
+{
+	b2PrismaticJointDef prismaticJointDef;
+
+	prismaticJointDef.Initialize(bodyA, bodyB, bodyB->GetPosition(), b2Vec2(0, -1));
+	prismaticJointDef.lowerTranslation = -6;
+	prismaticJointDef.upperTranslation = 6;
+	prismaticJointDef.enableLimit = true;
+	prismaticJointDef.maxMotorForce = 100;
+	prismaticJointDef.motorSpeed = 1.0f;
+	prismaticJointDef.enableMotor = true;
+	return m_world->CreateJoint(&prismaticJointDef);
 }
 
 void Scene::removeObjects()
