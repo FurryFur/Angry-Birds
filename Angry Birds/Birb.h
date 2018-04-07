@@ -10,7 +10,7 @@ struct NVGcontext;
 class Birb : public Object
 {
 public:
-	Birb(Scene& scene, float posX, float posY);
+	Birb(Scene& scene, float posX, float posY, float radius);
 	virtual ~Birb() override;
 	Birb(const Birb&) = delete;
 	Birb(Birb&&) = delete;

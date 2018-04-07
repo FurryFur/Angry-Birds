@@ -1,3 +1,4 @@
+#include "Pig.h"
 #include "Birb.h"
 
 #include "Scene.h"
@@ -5,23 +6,23 @@
 #include <nanovg.h>
 #include <Box2D\Box2D.h>
 
-Birb::Birb(Scene& scene, float posX, float posY, float radius)
+Pig::Pig(Scene& scene, float posX, float posY, float radius)
 	:
 	Object(scene)
 {
-	// Bird color
-	r = 255;
-	g = 0;
+	// Pig color
+	r = 0;
+	g = 255;
 	b = 0;
 
-	m_birbRadius = radius;
+	m_PigRadius = radius;
 
 	m_bodyDef.type = b2_dynamicBody;
 	m_bodyDef.position.Set(posX, posY);
 	m_body = scene.addObject(std::unique_ptr<Object>(this));
 
 	b2CircleShape dynamicBox;
-	dynamicBox.m_radius = m_birbRadius;
+	dynamicBox.m_radius = m_PigRadius;
 
 	b2FixtureDef fixtureDef;
 	fixtureDef.shape = &dynamicBox;
@@ -34,25 +35,40 @@ Birb::Birb(Scene& scene, float posX, float posY, float radius)
 	m_body->SetUserData(this);
 }
 
-Birb::~Birb()
+Pig::~Pig()
 {
 }
 
-void Birb::startContact(Object* other)
+void Pig::startContact(Object* other)
 {
-	r = 0;
-	g = 0;
-	b = 255;
+
 }
 
-void Birb::endContact(Object* other)
+void Pig::endContact(Object* other)
 {
-	r = 255;
-	g = 0;
-	b = 0;
+
 }
 
-void Birb::draw(NVGcontext* vg) const
+void Pig::postSolve(Object* other, const b2ContactImpulse* impulse)
+{
+
+}
+
+void Pig::preSolve(b2Contact* contact, Object* other, b2Vec2 velocity)
+{
+	float magnitude = velocity.Length();
+	if (magnitude > 10.0f)
+	{
+		if (dynamic_cast<Birb*>(other) != nullptr)
+		{
+			contact->SetEnabled(false);
+			m_gameScene.addToKillList(this);
+		}
+
+	}
+}
+
+void Pig::draw(NVGcontext* vg) const
 {
 	nvgFillColor(vg, nvgRGBA(r, g, b, 128));
 	nvgStrokeColor(vg, nvgRGBA(255, 192, 0, 255));
@@ -62,7 +78,7 @@ void Birb::draw(NVGcontext* vg) const
 		vg,
 		m_body->GetPosition().x * Scene::s_kPixelsPerMeter,
 		m_body->GetPosition().y * Scene::s_kPixelsPerMeter,
-		m_birbRadius * Scene::s_kPixelsPerMeter
+		m_PigRadius * Scene::s_kPixelsPerMeter
 	);
 	nvgFill(vg);
 	nvgStroke(vg);

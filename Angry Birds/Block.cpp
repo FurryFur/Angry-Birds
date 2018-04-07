@@ -38,8 +38,8 @@ Block::~Block()
 void Block::startContact(Object* other)
 {
 	//delete this;
-	/*if(dynamic_cast<Birb*>(other) != nullptr)
-		m_gameScene.addToKillList(this);*/
+	if(dynamic_cast<Birb*>(other) != nullptr)
+		m_gameScene.addToKillList(this);
 }
 
 void Block::endContact(Object* other)

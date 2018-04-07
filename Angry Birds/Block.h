@@ -20,6 +20,7 @@ public:
 
 	void draw(NVGcontext*) const override;
 
+
 private:
 	float m_width;
 	float m_height;

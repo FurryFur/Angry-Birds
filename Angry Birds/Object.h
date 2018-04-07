@@ -18,6 +18,11 @@ public:
 	virtual void startContact(Object*) = 0;
 	virtual void endContact(Object*) = 0;
 
+	virtual void postSolve(Object*, const b2ContactImpulse*);
+
+	virtual void preSolve(b2Contact*, Object*, b2Vec2);
+
+
 protected:
 	b2Body * m_body;
 	b2BodyDef m_bodyDef;
