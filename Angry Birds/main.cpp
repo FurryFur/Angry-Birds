@@ -21,6 +21,7 @@
 #include "Floor.h"
 #include "Block.h"
 #include "Utils.h"
+#include "SlingLine.h"
 
 #include "Scene.h"
 #include "Scene1.h"
@@ -40,6 +41,8 @@ using namespace glm;
 std::unique_ptr<Scene> g_scene;
 Birb* g_grabbedBirb = nullptr;
 
+const b2Vec2 g_kSlingshotPos = { pixelToMeter(300), pixelToMeter(WINDOW_HEIGHT - 300) };
+
 void errorcb(int error, const char* desc)
 {
 	printf("GLFW error %d: %s\n", error, desc);
@@ -55,12 +58,14 @@ void key(GLFWwindow* window, int key, int scancode, int action, int mods)
 void mouseMoveCallback(GLFWwindow* window, double mousex, double mousey)
 {
 	if (g_grabbedBirb) {
-		mousex /= Scene::s_kPixelsPerMeter;
-		mousey /= Scene::s_kPixelsPerMeter;
+		b2Vec2 mousePos = { pixelToMeter(mousex), pixelToMeter(mousey) };
+		b2Vec2 offsetFromSlingshot = mousePos - g_kSlingshotPos;
+		offsetFromSlingshot = limitVec(offsetFromSlingshot, 6);
+		b2Vec2 newBirbPos = g_kSlingshotPos + offsetFromSlingshot;
 
-		auto& body = g_grabbedBirb->getBody();
-		body.SetTransform(b2Vec2(mousex, mousey), body.GetAngle());
-		body.SetLinearVelocity(b2Vec2(0, 0));
+		b2Body& body = g_grabbedBirb->getBody();
+		body.SetTransform(newBirbPos, body.GetAngle());
+		body.SetLinearVelocity(b2Vec2{ 0, 0 });
 		body.SetAngularVelocity(0);
 	}
 }
@@ -83,6 +88,11 @@ void mouseBtnCallback(GLFWwindow* window, int button, int action, int mods)
 
 	if (action == GLFW_RELEASE) {
 		g_grabbedBirb->getBody().SetActive(true);
+		const b2Vec2& birbPos = g_grabbedBirb->getBody().GetPosition();
+		b2Vec2 impulse = (g_kSlingshotPos - birbPos);
+		impulse *= 15;
+		g_grabbedBirb->getBody().ApplyLinearImpulse(impulse, birbPos, true);
+
 		g_grabbedBirb = nullptr;
 	}
 }
@@ -130,6 +140,7 @@ int main()
 
 	// Create a scene with some Birbs
 	g_scene = std::unique_ptr<Scene>(new Scene1());
+	SlingLine slingLineDrawer(g_kSlingshotPos, g_grabbedBirb);
 	 
 	while (!glfwWindowShouldClose(window)) {
 		int winWidth, winHeight;
@@ -150,6 +161,7 @@ int main()
 
 		g_scene->update();
 		g_scene->draw(vg);
+		slingLineDrawer.draw(vg);
 
 		nvgEndFrame(vg);
 
