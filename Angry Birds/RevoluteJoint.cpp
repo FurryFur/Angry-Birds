@@ -5,7 +5,7 @@
 #include <nanovg.h>
 #include <Box2D\Box2D.h>
 
-RevoluteJoint::RevoluteJoint(Scene& scene, float posX, float posY, b2Body* connection, b2BodyType type)
+Hinge::Hinge(Scene& scene, float posX, float posY, b2BodyType type)
 	:
 	Object(scene)
 
@@ -22,25 +22,23 @@ RevoluteJoint::RevoluteJoint(Scene& scene, float posX, float posY, b2Body* conne
 	fixtureDef.shape = &circleShape;
 
 	m_body = scene.addObject(std::unique_ptr<Object>(this));
-
-	scene.createRevoluteJoint(m_body, connection, m_body->GetPosition(), connection->GetPosition());
 }
 
-RevoluteJoint::~RevoluteJoint()
+Hinge::~Hinge()
 {
 }
 
-void RevoluteJoint::startContact(Object* other)
+void Hinge::startContact(Object* other)
 {
 	// hit floor
 }
 
-void RevoluteJoint::endContact(Object* other)
+void Hinge::endContact(Object* other)
 {
 	// floor no hit
 }
 
-void RevoluteJoint::draw(NVGcontext* vg) const
+void Hinge::draw(NVGcontext* vg) const
 {
 	nvgFillColor(vg, nvgRGBA(255, 192, 0, 128));
 	nvgStrokeColor(vg, nvgRGBA(255, 192, 0, 255));

@@ -43,7 +43,7 @@ using namespace glm;
 Birb* g_grabbedBirb = nullptr;
 SceneManager g_sceneManager;
 
-const b2Vec2 g_kSlingshotPos = { pixelToMeter(300), pixelToMeter(WINDOW_HEIGHT - 300) };
+const b2Vec2 g_kSlingshotPos = { pixelToMeter(200), pixelToMeter(WINDOW_HEIGHT - 150) };
 
 void errorcb(int error, const char* desc)
 {
@@ -62,7 +62,7 @@ void mouseMoveCallback(GLFWwindow* window, double mousex, double mousey)
 	if (g_grabbedBirb) {
 		b2Vec2 mousePos = { pixelToMeter(mousex), pixelToMeter(mousey) };
 		b2Vec2 offsetFromSlingshot = mousePos - g_kSlingshotPos;
-		offsetFromSlingshot = limitVec(offsetFromSlingshot, 6);
+		offsetFromSlingshot = limitVec(offsetFromSlingshot, 2);
 		b2Vec2 newBirbPos = g_kSlingshotPos + offsetFromSlingshot;
 
 		b2Body& body = g_grabbedBirb->getBody();
@@ -92,7 +92,7 @@ void mouseBtnCallback(GLFWwindow* window, int button, int action, int mods)
 		g_grabbedBirb->getBody().SetActive(true);
 		const b2Vec2& birbPos = g_grabbedBirb->getBody().GetPosition();
 		b2Vec2 impulse = (g_kSlingshotPos - birbPos);
-		impulse *= 15;
+		impulse *= 60;
 		g_grabbedBirb->getBody().ApplyLinearImpulse(impulse, birbPos, true);
 
 		g_grabbedBirb = nullptr;

@@ -3,6 +3,8 @@
 
 #include "Birb.h"
 #include "Pig.h"
+#include "Block.h"
+#include "RevoluteJoint.h"
 
 #include "ContactListener.h"
 
@@ -93,15 +95,23 @@ b2Body* Scene::addObject(std::unique_ptr<Object> obj)
 	return body;
 }
 
-b2Joint* Scene::createRevoluteJoint(b2Body* bodyA, b2Body* bodyB, b2Vec2 anchorA, b2Vec2 anchorB)
+b2Joint* Scene::createRevoluteJoint(b2Body* bodyA, b2Body* bodyB, b2Vec2 anchorA, b2Vec2 anchorB, bool spin)
 {
 	b2RevoluteJointDef revoluteJointDef;
 	revoluteJointDef.bodyA = bodyA;
 	revoluteJointDef.bodyB = bodyB;
 	revoluteJointDef.collideConnected = false;
-	revoluteJointDef.maxMotorTorque = 0.01f;
-	revoluteJointDef.localAnchorA.Set(0,0);
-	revoluteJointDef.localAnchorB.Set(0,0);
+	revoluteJointDef.localAnchorA.Set(anchorA.x, anchorA.y);
+	revoluteJointDef.localAnchorB.Set(anchorB.x, anchorB.y);
+
+	revoluteJointDef.enableLimit = !spin;
+	revoluteJointDef.lowerAngle = -45 * g_kDegToRad;
+	revoluteJointDef.upperAngle = 45 * g_kDegToRad;
+
+	revoluteJointDef.enableMotor = spin;
+	revoluteJointDef.maxMotorTorque = 100.0f;
+	revoluteJointDef.motorSpeed = 500.0f;
+	
 
 	return m_world->CreateJoint(&revoluteJointDef);;
 }
@@ -118,18 +128,36 @@ b2Joint* Scene::createDistanceJoint(b2Body* bodyA, b2Body* bodyB, b2Vec2 anchorA
 }
 
 // TODO: MAKE MORE CUSTOMIZABLE
-b2Joint* Scene::createPrismaticJoint(b2Body* bodyA, b2Body* bodyB)
+b2Joint* Scene::createPrismaticJoint(b2Body* bodyA, b2Body* bodyB, float lower, float upper)
 {
 	b2PrismaticJointDef prismaticJointDef;
 
-	prismaticJointDef.Initialize(bodyA, bodyB, bodyB->GetPosition(), b2Vec2(0, -1));
-	prismaticJointDef.lowerTranslation = -6;
-	prismaticJointDef.upperTranslation = 6;
+	prismaticJointDef.Initialize(bodyA, bodyB, bodyB->GetPosition(), b2Vec2(-1, 0));
+	prismaticJointDef.lowerTranslation = lower;
+	prismaticJointDef.upperTranslation = upper;
 	prismaticJointDef.enableLimit = true;
-	prismaticJointDef.maxMotorForce = 100;
+	prismaticJointDef.maxMotorForce = 1000;
 	prismaticJointDef.motorSpeed = 1.0f;
 	prismaticJointDef.enableMotor = true;
 	return m_world->CreateJoint(&prismaticJointDef);
+}
+
+Block* Scene::createRopeStructure(Scene& scene, float xPos, float yPos, int chainLinks, float width, float height)
+{
+	Block* nooseBase = new Block(*this, xPos, yPos, width, height, RECTANGLE, WOOD);
+	Hinge* nooseHinge = new Hinge(scene, xPos, yPos, b2_kinematicBody);
+
+	createRevoluteJoint(&nooseHinge->getBody(), &nooseBase->getBody(), b2Vec2(0, 0), b2Vec2(0, 0), false);
+	Block* previousLink = nooseBase;
+
+	for (int i = 0; i < chainLinks; i++)
+	{
+		Block* currentLink = new Block(*this, xPos, yPos + 1 + i, width, height, RECTANGLE, WOOD);
+		createRevoluteJoint(&previousLink->getBody(), &currentLink->getBody(), b2Vec2(0, 0), b2Vec2(0, -1.0), false);
+		previousLink = currentLink;
+	}
+
+	return previousLink;
 }
 
 void Scene::removeObjects()

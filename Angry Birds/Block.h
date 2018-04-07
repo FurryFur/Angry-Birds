@@ -42,6 +42,6 @@ private:
 	float m_width;
 	float m_height;
 	Vec3 m_color;
-	int m_health = 3;
+	int m_health = 15;
 };
 

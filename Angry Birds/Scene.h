@@ -13,6 +13,7 @@ class ContactListener;
 class Object;
 struct NVGcontext;
 class Birb;
+class Block;
 
 class Scene
 {
@@ -29,9 +30,10 @@ public:
 	void checkAndEndLevel();
 
 	b2Body* addObject(std::unique_ptr<Object>);
-	b2Joint* createRevoluteJoint(b2Body*, b2Body*, b2Vec2, b2Vec2);
+	b2Joint* createRevoluteJoint(b2Body*, b2Body*, b2Vec2, b2Vec2, bool);
 	b2Joint* createDistanceJoint(b2Body*, b2Body*, b2Vec2, b2Vec2, float);
-	b2Joint* createPrismaticJoint(b2Body*, b2Body*);
+	b2Joint* createPrismaticJoint(b2Body*, b2Body*, float, float);
+	Block* createRopeStructure(Scene&, float, float, int, float, float);
 
 	void removeObjects();
 	void addToKillList(Object*);

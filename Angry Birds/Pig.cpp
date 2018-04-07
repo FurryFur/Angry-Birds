@@ -55,7 +55,7 @@ void Pig::endContact(Object* other)
 void Pig::preSolve(b2Contact* contact, Object* other, b2Vec2 velocity)
 {
 	float magnitude = velocity.Length();
-	if (magnitude > 10.0f)
+	if (magnitude > 5.0f)
 	{
 		if (dynamic_cast<Birb*>(other) != nullptr)
 		{

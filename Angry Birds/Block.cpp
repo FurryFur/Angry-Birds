@@ -19,11 +19,13 @@ Block::Block(Scene& scene, float posX, float posY, float width, float height, Sh
 		m_color = { 125,125,125 };
 	} 
 	else if (type == WOOD) {
-		m_color = { 60.0f * m_health,50.0f * m_health, 40.0f * m_health };
+		m_color = { 12.0f * m_health, 10.0f * m_health, 8.0f * m_health };
 	}
 
 	m_bodyDef.type = b2_dynamicBody;
 	m_bodyDef.position.Set(posX, posY);
+	m_bodyDef.angularDamping = 0.9f;
+
 	m_body = scene.addObject(std::unique_ptr<Object>(this));
 
 	b2FixtureDef fixtureDef;
@@ -68,6 +70,8 @@ void Block::preSolve(b2Contact* contact, Object* other, b2Vec2 velocity)
 		//delete this;
 		if (dynamic_cast<Birb*>(other) != nullptr)
 		{
+			magnitude > 10.0f ? m_health -= 8 : m_health -= 1;
+
 			decreaseHealth();
 
 			if (m_health <= 0)
@@ -127,6 +131,5 @@ void Block::draw(NVGcontext* vg) const
 
 void Block::decreaseHealth()
 {
-	m_health--;
-	m_color = { 60.0f * m_health,50.0f * m_health, 40.0f * m_health };
+	m_color = { 12.0f * m_health, 10.0f * m_health, 8.0f * m_health };
 }
