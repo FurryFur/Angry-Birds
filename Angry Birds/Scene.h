@@ -7,6 +7,7 @@ class b2World;
 class b2Body;
 class b2Joint;
 
+class SceneManager;
 class ContactListener;
 class Object;
 struct NVGcontext;
@@ -34,7 +35,10 @@ public:
 	static const float s_kGravity;
 
 protected:
-	Scene();
+	Scene(SceneManager&);
+
+	int m_levelNumber;
+	SceneManager& m_manager;
 
 	std::unique_ptr<ContactListener> m_contactListener;
 	std::vector<std::unique_ptr<Object>> m_objs;

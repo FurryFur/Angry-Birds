@@ -25,6 +25,7 @@
 
 #include "Scene.h"
 #include "Scene1.h"
+#include "Scene2.h"
 #include "SceneManager.h"
 
 #include <Box2D\Box2D.h>
@@ -140,8 +141,11 @@ int main()
 	}
 
 	// Create a scene with some Birbs
-	auto scene1 = std::unique_ptr<Scene>(new Scene1());
-	g_sceneManager.addScene(std::move(scene1));
+	auto scene1 = std::unique_ptr<Scene>(new Scene1(g_sceneManager));
+	g_sceneManager.addScene(std::move(scene1), "Level 1");
+
+	auto scene2 = std::unique_ptr<Scene>(new Scene2(g_sceneManager));
+	g_sceneManager.addScene(std::move(scene2), "Level 2");
 
 	SlingLine slingLineDrawer(g_kSlingshotPos, g_grabbedBirb);
 	 

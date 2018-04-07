@@ -5,7 +5,7 @@
 class Scene1 : public Scene
 {
 public:
-	Scene1();
+	Scene1(SceneManager&);
 	~Scene1() override;
 };
 

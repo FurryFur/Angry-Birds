@@ -1,4 +1,5 @@
 #include "Scene.h"
+#include "SceneManager.h"
 
 #include "Birb.h"
 #include "Pig.h"
@@ -6,12 +7,14 @@
 #include "ContactListener.h"
 
 #include <Box2D\Box2D.h>
+#include <sstream>
 
 const float Scene::s_kPixelsPerMeter = 32.0f;
 const float Scene::s_kGravity = 10;
 
-Scene::Scene()
+Scene::Scene(SceneManager& _manager)
 	: m_world{ std::make_unique<b2World>(b2Vec2(0.0f, s_kGravity)) }
+	, m_manager(_manager)
 {
 	m_contactListener = std::make_unique<ContactListener>();
 	m_world->SetAllowSleeping(true);
@@ -40,7 +43,9 @@ void Scene::checkAndEndLevel()
 {
 	if (m_pigCount <= 0)
 	{
-
+		std::stringstream ss;
+		ss << "Level " << (m_levelNumber+1);
+		m_manager.loadNewScene(ss.str());
 	}
 }
 
@@ -72,7 +77,10 @@ void Scene::removeObjects()
 		for (auto& kill : m_killList)
 		{
 			if (dynamic_cast<Pig*>(kill) != nullptr)
-				m_pigCount--; 
+			{
+				m_pigCount--;
+				checkAndEndLevel();
+			}
 
 			m_world->DestroyBody(&kill->getBody());
 			m_objs.erase(std::remove_if(m_objs.begin(), m_objs.end(), 
