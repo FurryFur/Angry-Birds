@@ -10,7 +10,7 @@ struct NVGcontext;
 class Pig : public Object
 {
 public:
-	Pig(Scene& scene, float posX, float posY);
+	Pig(Scene& scene, float posX, float posY, float radius);
 	virtual ~Pig() override;
 	Pig(const Pig&) = delete;
 	Pig(Pig&&) = delete;

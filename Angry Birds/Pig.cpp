@@ -6,7 +6,7 @@
 #include <nanovg.h>
 #include <Box2D\Box2D.h>
 
-Pig::Pig(Scene& scene, float posX, float posY)
+Pig::Pig(Scene& scene, float posX, float posY, float radius)
 	:
 	Object(scene)
 {
@@ -15,11 +15,11 @@ Pig::Pig(Scene& scene, float posX, float posY)
 	g = 255;
 	b = 0;
 
+	m_PigRadius = radius;
+
 	m_bodyDef.type = b2_dynamicBody;
 	m_bodyDef.position.Set(posX, posY);
 	m_body = scene.addObject(std::unique_ptr<Object>(this));
-
-	m_PigRadius = 1.0f;
 
 	b2CircleShape dynamicBox;
 	dynamicBox.m_radius = m_PigRadius;

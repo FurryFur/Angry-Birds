@@ -5,7 +5,7 @@
 #include <nanovg.h>
 #include <Box2D\Box2D.h>
 
-Birb::Birb(Scene& scene, float posX, float posY)
+Birb::Birb(Scene& scene, float posX, float posY, float radius)
 	:
 	Object(scene)
 {
@@ -14,11 +14,11 @@ Birb::Birb(Scene& scene, float posX, float posY)
 	g = 0;
 	b = 0;
 
+	m_birbRadius = radius;
+
 	m_bodyDef.type = b2_dynamicBody;
 	m_bodyDef.position.Set(posX, posY);
 	m_body = scene.addObject(std::unique_ptr<Object>(this));
-
-	m_birbRadius = 1.0f;
 
 	b2CircleShape dynamicBox;
 	dynamicBox.m_radius = m_birbRadius;
