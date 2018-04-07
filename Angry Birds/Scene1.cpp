@@ -14,6 +14,10 @@ Scene1::Scene1(SceneManager& _manager)
 	m_levelNumber = 1;
 
 	new Birb(*this, 1, 1, .6f);
+	new Birb(*this, 2, 1, .6f);
+	new Birb(*this, 3, 1, .6f);
+	new Birb(*this, 4, 1, .6f);
+
 	new Floor(*this, pixelToMeter(WINDOW_WIDTH) / 2, pixelToMeter(WINDOW_HEIGHT) + 2, 100, 10);
 	Block* blocky = new Block(*this, 5, 5, 1, 1, CIRCLE, METAL);
 	Block* blocky2 = new Block(*this, 5, 4, 1, 1, RECTANGLE, WOOD);

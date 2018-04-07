@@ -29,7 +29,7 @@ public:
 	void addToKillList(Object*);
 	void draw(NVGcontext*);
 
-	Birb* getCurrentBirb();
+	Birb* getNextFlingableBirb();
 
 	static const float s_kPixelsPerMeter;
 	static const float s_kGravity;
@@ -45,5 +45,8 @@ protected:
 	std::unique_ptr<b2World> m_world;
 	std::vector<Object*> m_killList;
 	int m_pigCount = 0;
+
+	std::vector<Birb*> m_birbs;
+	int m_nextFlingableBirbIdx = 0;
 };
 

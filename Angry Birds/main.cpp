@@ -76,7 +76,7 @@ void mouseMoveCallback(GLFWwindow* window, double mousex, double mousey)
 void mouseBtnCallback(GLFWwindow* window, int button, int action, int mods) 
 {
 	if (action == GLFW_PRESS) {
-		Birb* birb = g_sceneManager.getCurrentScene()->getCurrentBirb();
+		Birb* birb = g_sceneManager.getCurrentScene()->getNextFlingableBirb();
 		if (birb) {
 			// Make birb follow mouse 
 			birb->getBody().SetActive(false);
@@ -88,7 +88,7 @@ void mouseBtnCallback(GLFWwindow* window, int button, int action, int mods)
 		}
 	}
 
-	if (action == GLFW_RELEASE) {
+	if (g_grabbedBirb && action == GLFW_RELEASE) {
 		g_grabbedBirb->getBody().SetActive(true);
 		const b2Vec2& birbPos = g_grabbedBirb->getBody().GetPosition();
 		b2Vec2 impulse = (g_kSlingshotPos - birbPos);
