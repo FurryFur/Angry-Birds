@@ -1,6 +1,8 @@
 #include "Scene.h"
 
 #include "Birb.h"
+#include "Pig.h"
+
 #include "ContactListener.h"
 
 #include <Box2D\Box2D.h>
@@ -11,10 +13,10 @@ const float Scene::s_kGravity = 10;
 Scene::Scene()
 	: m_world{ std::make_unique<b2World>(b2Vec2(0.0f, s_kGravity)) }
 {
-	ContactListener* newContact = new ContactListener;
+	m_contactListener = std::make_unique<ContactListener>();
 	m_world->SetAllowSleeping(true);
 	m_world->SetContinuousPhysics(true);
-	m_world->SetContactListener(newContact);
+	m_world->SetContactListener(m_contactListener.get());
 }
 
 
@@ -32,6 +34,14 @@ void Scene::update()
 	m_world->Step(timeStep, velocityIterations, positionIterations);
 
 	removeObjects();
+}
+
+void Scene::checkAndEndLevel()
+{
+	if (m_pigCount <= 0)
+	{
+
+	}
 }
 
 b2Body* Scene::addObject(std::unique_ptr<Object> obj)
@@ -61,6 +71,9 @@ void Scene::removeObjects()
 	{
 		for (auto& kill : m_killList)
 		{
+			if (dynamic_cast<Pig*>(kill) != nullptr)
+				m_pigCount--; 
+
 			m_world->DestroyBody(&kill->getBody());
 			m_objs.erase(std::remove_if(m_objs.begin(), m_objs.end(), 
 				[kill](std::unique_ptr<Object> &obj) {return obj.get() == kill; }),

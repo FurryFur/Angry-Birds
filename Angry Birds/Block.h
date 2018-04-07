@@ -20,9 +20,12 @@ public:
 
 	void draw(NVGcontext*) const override;
 
+	void decreaseHealth();
 
 private:
 	float m_width;
 	float m_height;
+	float r, g, b;
+	int m_health = 3;
 };
 
