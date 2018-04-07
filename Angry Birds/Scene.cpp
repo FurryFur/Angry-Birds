@@ -1,6 +1,8 @@
 #include "Scene.h"
 
 #include "Birb.h"
+#include "Pig.h"
+
 #include "ContactListener.h"
 
 #include <Box2D\Box2D.h>
@@ -34,6 +36,14 @@ void Scene::update()
 	removeObjects();
 }
 
+void Scene::checkAndEndLevel()
+{
+	if (m_pigCount <= 0)
+	{
+
+	}
+}
+
 b2Body* Scene::addObject(std::unique_ptr<Object> obj)
 {
 	b2Body* body = m_world->CreateBody(&obj->getBodyDef());
@@ -61,6 +71,9 @@ void Scene::removeObjects()
 	{
 		for (auto& kill : m_killList)
 		{
+			if (dynamic_cast<Pig*>(kill) != nullptr)
+				m_pigCount--; 
+
 			m_world->DestroyBody(&kill->getBody());
 			m_objs.erase(std::remove_if(m_objs.begin(), m_objs.end(), 
 				[kill](std::unique_ptr<Object> &obj) {return obj.get() == kill; }),

@@ -24,6 +24,7 @@
 
 #include "Scene.h"
 #include "Scene1.h"
+#include "SceneManager.h"
 
 #include <Box2D\Box2D.h>
 #include <glm\glm.hpp>
@@ -37,8 +38,8 @@
 
 using namespace glm;
 
-std::unique_ptr<Scene> g_scene;
 Birb* g_grabbedBirb = nullptr;
+SceneManager g_sceneManager;
 
 void errorcb(int error, const char* desc)
 {
@@ -69,7 +70,7 @@ void mouseMoveCallback(GLFWwindow* window, double mousex, double mousey)
 void mouseBtnCallback(GLFWwindow* window, int button, int action, int mods) 
 {
 	if (action == GLFW_PRESS) {
-		Birb* birb = g_scene->getCurrentBirb();
+		Birb* birb = g_sceneManager.getCurrentScene()->getCurrentBirb();
 		if (birb) {
 			// Make birb follow mouse 
 			birb->getBody().SetActive(false);
@@ -129,8 +130,9 @@ int main()
 	}
 
 	// Create a scene with some Birbs
-	g_scene = std::unique_ptr<Scene>(new Scene1());
-	 
+	auto scene1 = std::unique_ptr<Scene>(new Scene1());
+	g_sceneManager.addScene(std::move(scene1));
+
 	while (!glfwWindowShouldClose(window)) {
 		int winWidth, winHeight;
 		int fbWidth, fbHeight;
@@ -148,8 +150,8 @@ int main()
 
 		nvgBeginFrame(vg, winWidth, winHeight, pxRatio);
 
-		g_scene->update();
-		g_scene->draw(vg);
+		g_sceneManager.getCurrentScene()->update();
+		g_sceneManager.getCurrentScene()->draw(vg);
 
 		nvgEndFrame(vg);
 

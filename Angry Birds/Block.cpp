@@ -13,6 +13,10 @@ Block::Block(Scene& scene, float posX, float posY, float width, float height)
 	Object(scene)
 
 {
+	r = 85 * m_health;
+	g = 85 * m_health;
+	b = 85 * m_health;
+
 	m_bodyDef.type = b2_dynamicBody;
 	m_bodyDef.position.Set(posX, posY);
 	m_body = scene.addObject(std::unique_ptr<Object>(this));
@@ -37,9 +41,15 @@ Block::~Block()
 
 void Block::startContact(Object* other)
 {
+
 	//delete this;
-	if(dynamic_cast<Birb*>(other) != nullptr)
-		m_gameScene.addToKillList(this);
+	if (dynamic_cast<Birb*>(other) != nullptr)
+	{
+		decreaseHealth();
+
+		if(m_health <= 0)
+			m_gameScene.addToKillList(this);
+	}
 }
 
 void Block::endContact(Object* other)
@@ -58,8 +68,8 @@ void Block::draw(NVGcontext* vg) const
 	nvgTranslate(vg, pixelPosition.x, pixelPosition.y);
 	nvgRotate(vg, (m_body->GetAngle()));
 
-	nvgFillColor(vg, nvgRGBA(255, 192, 0, 128));
-	nvgStrokeColor(vg, nvgRGBA(255, 192, 0, 255));
+	nvgFillColor(vg, nvgRGBA(r, g, b, 128));
+	nvgStrokeColor(vg, nvgRGBA(255, 255, 255, 255));
 
 	nvgBeginPath(vg);
 	nvgRect(
@@ -73,4 +83,13 @@ void Block::draw(NVGcontext* vg) const
 	nvgStroke(vg);
 
 	nvgRestore(vg);
+}
+
+void Block::decreaseHealth()
+{
+	m_health--;
+
+	r = 85 * m_health;
+	g = 85 * m_health;
+	b = 85 * m_health;
 }
