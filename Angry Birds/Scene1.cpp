@@ -18,7 +18,16 @@ Scene1::Scene1(SceneManager& _manager)
 	new Birb(*this, 3, 1, .6f);
 	new Birb(*this, 4, 1, .6f);
 
-	Floor* floor = new Floor(*this, pixelToMeter(WINDOW_WIDTH) / 2, pixelToMeter(WINDOW_HEIGHT) + 2, 100, 10);
+	float meterWidth = pixelToMeter(WINDOW_WIDTH);
+	float meterHeight = pixelToMeter(WINDOW_HEIGHT);
+
+	Floor* groundFloor = new Floor(*this, meterWidth / 2, meterHeight + 49.0f, meterWidth, 100);
+	Floor* upperWall =   new Floor(*this, meterWidth / 2, -49.0f, meterWidth, 100);
+
+	Floor* leftWall =  new Floor(*this, -49.9f, 0 + meterHeight / 2, 100, meterHeight - 2);
+	Floor* rightWall = new Floor(*this, meterWidth + 49.9f, 0 + meterHeight / 2, 100, meterHeight - 2);
+
+
 	Block* blocky = new Block(*this, 5, 5, 1, 1, CIRCLE, METAL);
 	Block* blocky2 = new Block(*this, 5, 4, 1, 1, RECTANGLE, WOOD);
 	Block* blocky3 = new Block(*this, 5, 3, 1, 1, RECTANGLE, WOOD);
@@ -30,7 +39,7 @@ Scene1::Scene1(SceneManager& _manager)
 
 
 	createDistanceJoint(&blocky->getBody(), &blocky2->getBody(), blocky->getBody().GetPosition(), blocky2->getBody().GetPosition(), 1.0f);
-	createPrismaticJoint(&floor->getBody(), &blocky5->getBody());
+	createPrismaticJoint(&groundFloor->getBody(), &blocky5->getBody());
 
 
 

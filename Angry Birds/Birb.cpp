@@ -17,7 +17,8 @@ Birb::Birb(Scene& scene, float posX, float posY, float radius)
 	m_birbRadius = radius;
 
 	m_bodyDef.type = b2_dynamicBody;
-	m_bodyDef.angularDamping = 0.75;
+	m_bodyDef.angularDamping = 0.9f;
+	m_bodyDef.linearDamping = 0.25f;
 	m_bodyDef.position.Set(posX, posY);
 	m_body = scene.addObject(std::unique_ptr<Object>(this));
 
@@ -26,8 +27,8 @@ Birb::Birb(Scene& scene, float posX, float posY, float radius)
 
 	b2FixtureDef fixtureDef;
 	fixtureDef.shape = &dynamicBox;
-	fixtureDef.density = 1.0f;
-	fixtureDef.friction = 0.3f;
+	fixtureDef.density = 3;
+	fixtureDef.friction = 1.0f;
 	fixtureDef.restitution = 0.5f;
 
 	m_body->CreateFixture(&fixtureDef);
@@ -41,9 +42,9 @@ Birb::~Birb()
 
 void Birb::startContact(Object* other)
 {
-	r = 0;
+	r = 200;
 	g = 0;
-	b = 255;
+	b = 0;
 }
 
 void Birb::endContact(Object* other)
