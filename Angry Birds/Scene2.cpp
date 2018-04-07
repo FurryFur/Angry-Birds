@@ -14,6 +14,7 @@ Scene2::Scene2(SceneManager& _manager)
 	m_levelNumber = 2;
 
 	new Birb(*this, 1, 1, .6f);
+	new Pig(*this, 3, 1, .6f);
 	new Floor(*this, pixelToMeter(WINDOW_WIDTH) / 2, pixelToMeter(WINDOW_HEIGHT) + 2, 100, 10);
 }
 

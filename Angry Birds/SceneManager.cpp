@@ -30,7 +30,14 @@ void SceneManager::addScene(std::unique_ptr<Scene> newScene, std::string sceneNa
 
 void SceneManager::loadNewScene(std::string _newScene)
 {
-	m_currentScene = m_sceneMap[_newScene].get();
+	if (m_sceneMap.find(_newScene) != m_sceneMap.end()) {
+		m_currentScene = m_sceneMap[_newScene].get();
+		restartLevel();
+	}
+	else {
+		m_currentScene = m_sceneMap["Level 1"].get();
+		restartLevel();
+	}
 }
 
 void SceneManager::restartLevel()
@@ -39,6 +46,6 @@ void SceneManager::restartLevel()
 	m_currentScene = restartedScene.get();
 
 	std::stringstream ss;
-	ss << "Level " << (m_currentScene->getLevelNum() + 1);
+	ss << "Level " << (m_currentScene->getLevelNum());
 	m_sceneMap[ss.str()] = std::move(restartedScene);
 }

@@ -37,7 +37,6 @@ Scene1::Scene1(SceneManager& _manager)
 	new Pig(*this, 10, 1, .5f);
 	new Pig(*this, 11, 1, .5f);
 	new Pig(*this, 12, 1, .5f);
-	m_pigCount = 3;
 
 
 	new RevoluteJoint(*this, 5, 5, &blocky->getBody(), b2_kinematicBody);

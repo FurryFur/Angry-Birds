@@ -52,11 +52,13 @@ void Scene::checkAndEndLevel()
 		// If we have fired all birbs then check if all birbs are stationary
 		bool allSleeping = true;
 		for (Birb* birb : m_birbs) {
+			// Last birb is still grabbed so we shouldn't restart yet
 			if (!birb->getBody().IsActive()) {
 				allSleeping = false;
 				break;
 			}
 
+			// Check if moving
 			if (birb->getBody().IsAwake() && birb->getBody().GetLinearVelocity().Length() > 1.0f) {
 				allSleeping = false;
 				break;
@@ -74,9 +76,13 @@ b2Body* Scene::addObject(std::unique_ptr<Object> obj)
 {
 	// Add to birb list if birb
 	Birb* birb = dynamic_cast<Birb*>(obj.get());
-	if (birb) {
+	if (birb) 
 		m_birbs.push_back(birb);
-	}
+
+	// Record pig count
+	Pig* pig = dynamic_cast<Pig*>(obj.get());
+	if (pig)
+		++m_pigCount;
 
 	// Create physics body and add to physics simulation
 	b2Body* body = m_world->CreateBody(&obj->getBodyDef());
