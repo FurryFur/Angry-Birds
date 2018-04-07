@@ -7,6 +7,11 @@
 #define WINDOW_WIDTH 1600
 #define WINDOW_HEIGHT 800
 
+struct Vec3
+{
+	float x, y, z;
+};
+
 static float pixelToMeter(float pixel)
 {
 	return pixel / Scene::s_kPixelsPerMeter;

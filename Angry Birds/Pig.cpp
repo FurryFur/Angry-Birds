@@ -52,11 +52,6 @@ void Pig::endContact(Object* other)
 
 }
 
-void Pig::postSolve(Object* other, const b2ContactImpulse* impulse)
-{
-
-}
-
 void Pig::preSolve(b2Contact* contact, Object* other, b2Vec2 velocity)
 {
 	float magnitude = velocity.Length();
