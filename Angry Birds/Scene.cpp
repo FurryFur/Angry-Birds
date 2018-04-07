@@ -98,13 +98,28 @@ void Scene::draw(NVGcontext* vg)
 	}
 }
 
-Birb* Scene::getCurrentBirb()
+Birb* Scene::getNextFlingableBirb()
 {
-	for (auto& obj : m_objs) {
-		Birb* birb = dynamic_cast<Birb*>(obj.get());
-		if (birb)
-			return birb;
+	static bool s_initialized = false;
+	static std::vector<Birb*> s_birbs;
+	static int s_nextBirbIdx = 0;
+
+	// Construct birb list the first time this function is called
+	if (!s_initialized) {
+		for (auto& obj : m_objs) {
+			Birb* birb = dynamic_cast<Birb*>(obj.get());
+			if (birb)
+				s_birbs.push_back(birb);
+		}
+		s_initialized = true;
 	}
 
-	return nullptr;
+	// Get the next flingable birb in the scene
+	Birb* nextBirb = nullptr;
+	if (s_nextBirbIdx < s_birbs.size()) {
+		nextBirb = s_birbs[s_nextBirbIdx];
+		++s_nextBirbIdx;
+	}
+
+	return nextBirb;
 }

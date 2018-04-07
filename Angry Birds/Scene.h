@@ -28,7 +28,7 @@ public:
 	void addToKillList(Object*);
 	void draw(NVGcontext*);
 
-	Birb* getCurrentBirb();
+	Birb* getNextFlingableBirb();
 
 	static const float s_kPixelsPerMeter;
 	static const float s_kGravity;
