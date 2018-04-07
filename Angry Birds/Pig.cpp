@@ -41,13 +41,31 @@ Pig::~Pig()
 
 void Pig::startContact(Object* other)
 {
-	if (dynamic_cast<Birb*>(other) != nullptr)
-		m_gameScene.addToKillList(this);
+
 }
 
 void Pig::endContact(Object* other)
 {
 
+}
+
+void Pig::postSolve(Object* other, const b2ContactImpulse* impulse)
+{
+
+}
+
+void Pig::preSolve(b2Contact* contact, Object* other, b2Vec2 velocity)
+{
+	float magnitude = velocity.Length();
+	if (magnitude > 10.0f)
+	{
+		if (dynamic_cast<Birb*>(other) != nullptr)
+		{
+			contact->SetEnabled(false);
+			m_gameScene.addToKillList(this);
+		}
+
+	}
 }
 
 void Pig::draw(NVGcontext* vg) const
