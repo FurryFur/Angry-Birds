@@ -7,10 +7,10 @@ struct NVGcontext;
 
 class SlingLine {
 public:
-	SlingLine(b2Vec2 slingPos, Birb*& grabbedBird);
+	SlingLine(b2Vec2 slingPos, Birb*& grabbedBirb);
 	void draw(NVGcontext*);
 	
 private:
 	b2Vec2 m_slingPos;
-	Birb*& m_grabbedBird;
+	Birb*& m_grabbedBirb;
 };
