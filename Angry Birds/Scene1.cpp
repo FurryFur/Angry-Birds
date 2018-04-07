@@ -7,8 +7,12 @@
 #include "Block.h"
 #include "RevoluteJoint.h"
 
-Scene1::Scene1()
+Scene1::Scene1(SceneManager& _manager)
+	:
+	Scene(_manager)
 {
+	m_levelNumber = 1;
+
 	new Birb(*this, 1, 1, .6f);
 	new Floor(*this, pixelToMeter(WINDOW_WIDTH) / 2, pixelToMeter(WINDOW_HEIGHT) + 2, 100, 10);
 	Block* blocky = new Block(*this, 5, 5, 1, 1);
