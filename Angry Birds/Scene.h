@@ -46,8 +46,7 @@ protected:
 	std::vector<Object*> m_killList;
 	int m_pigCount = 0;
 
-	bool m_birbListInitialized = false;
-	std::vector<Birb*> m_birbs; // Lazily initialized in getNextFlingableBirb, do not manually initialize
+	std::vector<Birb*> m_birbs;
 	int m_nextFlingableBirbIdx = 0;
 };
 

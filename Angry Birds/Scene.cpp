@@ -51,7 +51,16 @@ void Scene::checkAndEndLevel()
 
 b2Body* Scene::addObject(std::unique_ptr<Object> obj)
 {
+	// Add to birb list if birb
+	Birb* birb = dynamic_cast<Birb*>(obj.get());
+	if (birb) {
+		m_birbs.push_back(birb);
+	}
+
+	// Create physics body and add to physics simulation
 	b2Body* body = m_world->CreateBody(&obj->getBodyDef());
+
+	// Store unique pointer to object
 	m_objs.push_back(std::move(obj));
 
 	return body;
@@ -108,16 +117,6 @@ void Scene::draw(NVGcontext* vg)
 
 Birb* Scene::getNextFlingableBirb()
 {
-	// Construct birb list the first time this function is called
-	if (!m_birbListInitialized) {
-		for (auto& obj : m_objs) {
-			Birb* birb = dynamic_cast<Birb*>(obj.get());
-			if (birb)
-				m_birbs.push_back(birb);
-		}
-		m_birbListInitialized = true;
-	}
-
 	// Get the next flingable birb in the scene
 	Birb* nextBirb = nullptr;
 	if (m_nextFlingableBirbIdx < m_birbs.size()) {
