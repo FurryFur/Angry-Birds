@@ -45,5 +45,9 @@ protected:
 	std::unique_ptr<b2World> m_world;
 	std::vector<Object*> m_killList;
 	int m_pigCount = 0;
+
+	bool m_birbListInitialized = false;
+	std::vector<Birb*> m_birbs; // Lazily initialized in getNextFlingableBirb, do not manually initialize
+	int m_nextFlingableBirbIdx = 0;
 };
 
