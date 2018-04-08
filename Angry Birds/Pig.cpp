@@ -1,5 +1,6 @@
 #include "Pig.h"
 #include "Birb.h"
+#include "Block.h"
 
 #include "Scene.h"
 
@@ -55,12 +56,13 @@ void Pig::endContact(Object* other)
 void Pig::preSolve(b2Contact* contact, Object* other, b2Vec2 velocity)
 {
 	float magnitude = velocity.Length();
-	if (magnitude > 5.0f)
+	if (magnitude > 10.0f)
 	{
-		if (dynamic_cast<Birb*>(other) != nullptr)
+		if (!m_dead && (dynamic_cast<Birb*>(other) != nullptr || dynamic_cast<Block*>(other) != nullptr))
 		{
 			contact->SetEnabled(false);
 			m_gameScene.addToKillList(this);
+			m_dead = true;
 		}
 
 	}

@@ -33,10 +33,10 @@ void ContactListener::PreSolve(b2Contact* contact, const b2Manifold * oldManifol
 	void* bodyUserDataB = contact->GetFixtureB()->GetBody()->GetUserData();
 
 	if (bodyUserDataA)
-		static_cast<Object*>(bodyUserDataA)->preSolve(contact, static_cast<Object*>(bodyUserDataB), contact->GetFixtureB()->GetBody()->GetLinearVelocity());
+		static_cast<Object*>(bodyUserDataA)->preSolve(contact, static_cast<Object*>(bodyUserDataB), contact->GetFixtureB()->GetBody()->GetLinearVelocity()- contact->GetFixtureA()->GetBody()->GetLinearVelocity());
 
 	if (bodyUserDataB)
-		static_cast<Object*>(bodyUserDataB)->preSolve(contact, static_cast<Object*>(bodyUserDataA), contact->GetFixtureA()->GetBody()->GetLinearVelocity());
+		static_cast<Object*>(bodyUserDataB)->preSolve(contact, static_cast<Object*>(bodyUserDataA), contact->GetFixtureA()->GetBody()->GetLinearVelocity() - contact->GetFixtureB()->GetBody()->GetLinearVelocity());
 }
 
 void ContactListener::PostSolve(b2Contact * contact, const b2ContactImpulse * impulse)

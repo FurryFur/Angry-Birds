@@ -24,5 +24,6 @@ public:
 private:
 	float m_PigRadius;
 	float r, g, b;
+	bool m_dead;
 };
 

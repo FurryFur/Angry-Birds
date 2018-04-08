@@ -142,11 +142,13 @@ int main()
 	}
 
 	// Create a scene with some Birbs
+	auto scene2 = std::unique_ptr<Scene>(new Scene2(g_sceneManager));
+	g_sceneManager.addScene(std::move(scene2), "Level 2");
+
 	auto scene1 = std::unique_ptr<Scene>(new Scene1(g_sceneManager));
 	g_sceneManager.addScene(std::move(scene1), "Level 1");
 
-	auto scene2 = std::unique_ptr<Scene>(new Scene2(g_sceneManager));
-	g_sceneManager.addScene(std::move(scene2), "Level 2");
+
 
 	SlingLine slingLineDrawer(g_kSlingshotPos, g_grabbedBirb);
 	 

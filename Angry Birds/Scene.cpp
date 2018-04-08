@@ -175,6 +175,8 @@ void Scene::removeObjects()
 			m_objs.erase(std::remove_if(m_objs.begin(), m_objs.end(), 
 				[kill](std::unique_ptr<Object> &obj) {return obj.get() == kill; }),
 				m_objs.end());
+
+			kill = nullptr;
 		}
 
 		m_killList.clear();
