@@ -34,14 +34,14 @@ Scene1::Scene1(SceneManager& _manager)
 		for (int j = 0; j < 4; j++)
 		{
 			Block* block = new Block(*this, meterWidth - 3 - j, 6 - i, randFloat(0.3f, 0.6f), randFloat(0.3f, 0.6f), (Shape)(rand() % 2), WOOD);
-			if(rand() % 10 < 2)
+			if(rand() % 10 < 1)
 				Pig* noosedPig = new Pig(*this, (meterWidth - 3 - j), 6 - i, .5f);
 		}
 	}
 
 	Block* garbageWall = new Block(*this, meterWidth - 9, 0 + 6, 1, 10, RECTANGLE, WOOD);
 	Hinge* garbageHinge = new Hinge(*this, meterWidth - 9, 0 + 6, b2_kinematicBody);
-	createRevoluteJoint(&garbageHinge->getBody(), &garbageWall->getBody(), b2Vec2(0, 0), b2Vec2(0, 0), false);
+	createRevoluteJoint(&garbageHinge->getBody(), &garbageWall->getBody(), b2Vec2(0, 0), b2Vec2(0, 0), false, 0.0f);
 
 	Block* garbageFloor = new Block(*this, meterWidth - 4.75f, 11.5f, 9.0f, 1, RECTANGLE, WOOD);
 	createPrismaticJoint(&groundFloor->getBody(), &garbageFloor->getBody(), -8.5f,8.5f);
@@ -49,7 +49,7 @@ Scene1::Scene1(SceneManager& _manager)
 	// Seesaw
 	Block* seeSaw = new Block(*this, midScreenX, midScreenY, 1, 10, RECTANGLE, METAL);
 	Hinge* seeSawHinge = new Hinge(*this, midScreenX, midScreenY + 2, b2_kinematicBody);
-	createRevoluteJoint(&seeSawHinge->getBody(), &seeSaw->getBody(), b2Vec2(0, 0), b2Vec2(0, 0), true);
+	createRevoluteJoint(&seeSawHinge->getBody(), &seeSaw->getBody(), b2Vec2(0, 0), b2Vec2(0, 0), true, 500.0f);
 
 	// Noosed pig
 	int chainLink = 7;
@@ -58,7 +58,7 @@ Scene1::Scene1(SceneManager& _manager)
 	{
 		Block* lastLink = createRopeStructure(*this, (midScreenX - 3) + i*3, 1.5f, chainLink, 0.3f, 1);
 		Pig* noosedPig = new Pig(*this, (midScreenX - 6) + i * 3, 1.5f + chainLink, .5f);
-		createRevoluteJoint(&lastLink->getBody(), &noosedPig->getBody(), b2Vec2(0, 1), b2Vec2(0, 0), false);
+		createRevoluteJoint(&lastLink->getBody(), &noosedPig->getBody(), b2Vec2(0, 1), b2Vec2(0, 0), false, 0.0f);
 	}
 }
 

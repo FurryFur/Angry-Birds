@@ -43,5 +43,6 @@ private:
 	float m_height;
 	Vec3 m_color;
 	int m_health = 15;
+	bool m_dead = false;
 };
 

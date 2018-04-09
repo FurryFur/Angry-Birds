@@ -95,7 +95,7 @@ b2Body* Scene::addObject(std::unique_ptr<Object> obj)
 	return body;
 }
 
-b2Joint* Scene::createRevoluteJoint(b2Body* bodyA, b2Body* bodyB, b2Vec2 anchorA, b2Vec2 anchorB, bool spin)
+b2Joint* Scene::createRevoluteJoint(b2Body* bodyA, b2Body* bodyB, b2Vec2 anchorA, b2Vec2 anchorB, bool spin, float motorSpeed)
 {
 	b2RevoluteJointDef revoluteJointDef;
 	revoluteJointDef.bodyA = bodyA;
@@ -110,7 +110,7 @@ b2Joint* Scene::createRevoluteJoint(b2Body* bodyA, b2Body* bodyB, b2Vec2 anchorA
 
 	revoluteJointDef.enableMotor = spin;
 	revoluteJointDef.maxMotorTorque = 100.0f;
-	revoluteJointDef.motorSpeed = 500.0f;
+	revoluteJointDef.motorSpeed = motorSpeed;
 	
 
 	return m_world->CreateJoint(&revoluteJointDef);;
@@ -120,9 +120,10 @@ b2Joint* Scene::createRevoluteJoint(b2Body* bodyA, b2Body* bodyB, b2Vec2 anchorA
 b2Joint* Scene::createDistanceJoint(b2Body* bodyA, b2Body* bodyB, b2Vec2 anchorA, b2Vec2 anchorB, float length)
 {
 	b2DistanceJointDef distanceJointDef;
-	distanceJointDef.Initialize(bodyA, bodyB, bodyA->GetPosition(), bodyB->GetPosition());
-	distanceJointDef.frequencyHz = 4.0f;
-	distanceJointDef.dampingRatio = 0.1f;
+	distanceJointDef.Initialize(bodyA, bodyB, anchorA, anchorB);
+	//distanceJointDef.frequencyHz = 4.0f;
+	//d//istanceJointDef.dampingRatio = 0.1f;
+	distanceJointDef.length = length;
 	distanceJointDef.collideConnected = true;
 	return m_world->CreateJoint(&distanceJointDef);
 }
@@ -147,13 +148,13 @@ Block* Scene::createRopeStructure(Scene& scene, float xPos, float yPos, int chai
 	Block* nooseBase = new Block(*this, xPos, yPos, width, height, RECTANGLE, WOOD);
 	Hinge* nooseHinge = new Hinge(scene, xPos, yPos, b2_kinematicBody);
 
-	createRevoluteJoint(&nooseHinge->getBody(), &nooseBase->getBody(), b2Vec2(0, 0), b2Vec2(0, 0), false);
+	createRevoluteJoint(&nooseHinge->getBody(), &nooseBase->getBody(), b2Vec2(0, 0), b2Vec2(0, 0), false, 0.0f);
 	Block* previousLink = nooseBase;
 
 	for (int i = 0; i < chainLinks; i++)
 	{
 		Block* currentLink = new Block(*this, xPos, yPos + 1 + i, width, height, RECTANGLE, WOOD);
-		createRevoluteJoint(&previousLink->getBody(), &currentLink->getBody(), b2Vec2(0, 0), b2Vec2(0, -1.0), false);
+		createRevoluteJoint(&previousLink->getBody(), &currentLink->getBody(), b2Vec2(0, 0), b2Vec2(0, -1.0), false, 0.0f);
 		previousLink = currentLink;
 	}
 
