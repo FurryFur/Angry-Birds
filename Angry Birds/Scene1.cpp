@@ -32,13 +32,14 @@ Scene1::Scene1(SceneManager& _manager)
 	Floor* leftWall =  new Floor(*this, -49.9f, 0 + meterHeight / 2, 100, meterHeight - 2);
 	Floor* rightWall = new Floor(*this, meterWidth + 49.9f, 0 + meterHeight / 2, 100, meterHeight - 2);
 
+	// Generate random pile of blocks around pigs
 	for (int i = 0; i < 4; i++)
 	{
 		for (int j = 0; j < 4; j++)
 		{
-			Block* block = new Block(*this, meterWidth - 3 - j, 6 - i, randFloat(0.3f, 0.6f), randFloat(0.3f, 0.6f), (Shape)(rand() % 2), WOOD);
+			Block* block = new Block(*this, meterWidth - 3.0f - j, 6.0f - i, randFloat(0.3f, 0.6f), randFloat(0.3f, 0.6f), (Shape)(rand() % 2), WOOD);
 			if(rand() % 10 < 1)
-				Pig* noosedPig = new Pig(*this, (meterWidth - 3 - j), 6 - i, .5f);
+				Pig* noosedPig = new Pig(*this, (meterWidth - 3.0f - j), 6.0f - i, .5f);
 		}
 	}
 

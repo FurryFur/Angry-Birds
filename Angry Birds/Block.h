@@ -41,7 +41,7 @@ private:
 	Type m_type;
 	float m_width;
 	float m_height;
-	Vec3 m_color;
+	Color m_color;
 	int m_health = 15;
 	bool m_dead = false;
 };

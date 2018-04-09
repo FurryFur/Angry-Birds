@@ -23,7 +23,7 @@ public:
 
 private:
 	float m_PigRadius;
-	float r, g, b;
+	unsigned char r, g, b;
 	bool m_dead;
 };
 

@@ -72,7 +72,7 @@ void key(GLFWwindow* window, int key, int scancode, int action, int mods)
 void mouseMoveCallback(GLFWwindow* window, double mousex, double mousey)
 {
 	if (g_grabbedBirb) {
-		b2Vec2 mousePos = { pixelToMeter(mousex), pixelToMeter(mousey) };
+		b2Vec2 mousePos = { pixelToMeter(static_cast<float>(mousex)), pixelToMeter(static_cast<float>(mousey)) };
 		b2Vec2 offsetFromSlingshot = mousePos - g_kSlingshotPos;
 		offsetFromSlingshot = limitVec(offsetFromSlingshot, 2);
 		b2Vec2 offsetToSlingshot = -offsetFromSlingshot;

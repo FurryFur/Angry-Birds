@@ -20,7 +20,7 @@ public:
 
 protected:
 	float m_birbRadius;
-	float r, g, b;
+	unsigned char r, g, b;
 
 private:
 	

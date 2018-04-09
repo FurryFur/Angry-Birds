@@ -20,7 +20,7 @@ Block::Block(Scene& scene, float posX, float posY, float width, float height, Sh
 		m_color = { 125,125,125 };
 	} 
 	else if (type == WOOD) {
-		m_color = { 12.0f * m_health, 10.0f * m_health, 8.0f * m_health };
+		m_color = { static_cast<unsigned char>(12 * m_health), static_cast<unsigned char>(10 * m_health), static_cast<unsigned char>(8 * m_health) };
 	}
 
 	m_bodyDef.type = b2_dynamicBody;
@@ -135,5 +135,5 @@ void Block::draw(NVGcontext* vg) const
 
 void Block::decreaseHealth()
 {
-	m_color = { 12.0f * m_health, 10.0f * m_health, 8.0f * m_health };
+	m_color = { static_cast<unsigned char>(12 * m_health), static_cast<unsigned char>(10 * m_health), static_cast<unsigned char>(8 * m_health) };
 }

@@ -4,15 +4,16 @@
 
 #include <Box2D\Box2D.h>
 
+#include <glm\gtc\constants.hpp>
+
 #define WINDOW_WIDTH 1600
 #define WINDOW_HEIGHT 800
 
-const float g_kPI = 3.14159265;
-const float g_kDegToRad = g_kPI / 180.0f;
+const float g_kDegToRad = glm::pi<float>() / 180.0f;
 
-struct Vec3
+struct Color
 {
-	float x, y, z;
+	unsigned char x, y, z;
 };
 
 static float pixelToMeter(float pixel)

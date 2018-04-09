@@ -16,14 +16,14 @@ Particle::Particle(Scene& scene, float posX, float posY, float blastPower, b2Vec
 {
 	// Particle color
 	r = 255;
-	g = (int)m_shrapnel * 255;
+	g = static_cast<unsigned char>((int)m_shrapnel * 255);
 	b = 0;
 
 	m_bodyDef.type = b2_dynamicBody;
 	m_bodyDef.fixedRotation = true; // rotation not necessary
 	m_bodyDef.bullet = true; // prevent tunneling at high speed
 	m_bodyDef.linearDamping = (m_shrapnel) ? 1.0f : 10; // drag due to moving through air
-	m_bodyDef.gravityScale = (int)m_shrapnel; // ignore gravity
+	m_bodyDef.gravityScale = static_cast<float>((int)m_shrapnel); // ignore gravity
 	m_bodyDef.position.Set(posX, posY);
 	m_originalPos.Set(posX, posY);
 	m_bodyDef.linearVelocity = blastPower * rayDir;

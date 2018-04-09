@@ -22,7 +22,7 @@ public:
 
 private:
 	float m_ParticleRadius;
-	float r, g, b;
+	unsigned char r, g, b;
 	b2Vec2 m_originalPos;
 	bool m_dead = false;
 	bool m_shrapnel;
