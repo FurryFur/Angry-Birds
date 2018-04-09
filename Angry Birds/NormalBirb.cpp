@@ -1,26 +1,26 @@
-#include "Bomber.h"
+#include "NormalBirb.h"
 #include "Scene.h"
-#include "Pig.h"
-#include "Block.h"
 
 
-Bomber::Bomber(Scene& scene, float posX, float posY, float radius)
+
+NormalBirb::NormalBirb(Scene& scene, float posX, float posY, float radius)
 	: Birb(scene, posX, posY, radius)
 {
 	Initialize(scene);
 }
 
 
-Bomber::~Bomber()
+NormalBirb::~NormalBirb()
 {
 }
 
-void Bomber::Initialize(Scene& scene)
+void NormalBirb::Initialize(Scene& scene)
 {
 	// Bird color
-	r = 0;
+	r = 255;
 	g = 0;
 	b = 0;
+
 
 	m_bodyDef.type = b2_dynamicBody;
 	m_bodyDef.angularDamping = 0.9f;
@@ -39,22 +39,4 @@ void Bomber::Initialize(Scene& scene)
 
 	m_body->CreateFixture(&fixtureDef);
 	m_body->SetUserData(this);
-}
-
-void Bomber::startContact(Object* other)
-{
-	if (!m_dead && (dynamic_cast<Block*>(other) != nullptr || dynamic_cast<Pig*>(other) != nullptr))
-	{
-		m_gameScene.addToKillList(this);
-		m_dead = true;
-
-	}
-}
-
-void Bomber::endContact(Object* other)
-{
-	r = 0;
-	g = 0;
-	b = 0;
-	
 }

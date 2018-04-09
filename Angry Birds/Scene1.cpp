@@ -2,7 +2,8 @@
 #include "Utils.h"
 
 #include "Birb.h"
-#include "Bomber.h"
+#include "BomberBirb.h"
+#include "NormalBirb.h"
 #include "Pig.h"
 #include "Floor.h"
 #include "Block.h"
@@ -14,9 +15,9 @@ Scene1::Scene1(SceneManager& _manager)
 {
 	m_levelNumber = 1;
 
-	new Bomber(*this, 1, 1, .6f);
+	new NormalBirb(*this, 1, 1, .6f);
 	new Bomber(*this, 2, 1, .6f);
-	new Bomber(*this, 3, 1, .6f);
+	new NormalBirb(*this, 3, 1, .6f);
 	new Bomber(*this, 4, 1, .6f);
 
 	float meterWidth = pixelToMeter(WINDOW_WIDTH);

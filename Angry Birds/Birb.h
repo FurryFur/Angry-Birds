@@ -15,7 +15,7 @@ public:
 	Birb(const Birb&) = delete;
 	Birb(Birb&&) = delete;
 
-	virtual void Initialize(Scene& scene);
+	virtual void Initialize(Scene& scene) = 0;
 	void draw(NVGcontext*) const override;
 
 	void startContact(Object*) override;
