@@ -5,6 +5,7 @@
 #include "Pig.h"
 #include "Block.h"
 #include "RevoluteJoint.h"
+#include "Particle.h"
 
 #include "ContactListener.h"
 
@@ -161,8 +162,30 @@ Block* Scene::createRopeStructure(Scene& scene, float xPos, float yPos, int chai
 	return previousLink;
 }
 
+void Scene::createExplosion(int rays, float blastPower, b2Vec2 center)
+{
+	for (int i = 0; i < rays; i++) {
+		float angle = (i / (float)rays) * 360 * g_kDegToRad;
+		b2Vec2 rayDir(sinf(angle), cosf(angle));
+
+		Particle* particle = new Particle(*this, center.x, center.y, blastPower,rayDir, rays);
+		//Block* block = new Block(*this, 10, 10, 1, 1, (Shape)(rand() % 2), WOOD);
+
+	}
+}
+
 void Scene::removeObjects()
 {
+	// Remove sleeping particles
+	for (int i = 0; i < m_objs.size(); i++)
+	{
+		if (dynamic_cast<Particle*>(m_objs[i].get()) != nullptr && !m_objs[i]->getBody().IsAwake())
+		{
+			m_world->DestroyBody(&m_objs[i]->getBody());
+			m_objs.erase(m_objs.begin() + i);
+		}
+	}
+
 	if (m_killList.size() != 0)
 	{
 		for (auto& kill : m_killList)

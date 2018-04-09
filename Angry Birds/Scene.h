@@ -34,7 +34,7 @@ public:
 	b2Joint* createDistanceJoint(b2Body*, b2Body*, b2Vec2, b2Vec2, float);
 	b2Joint* createPrismaticJoint(b2Body*, b2Body*, float, float);
 	Block* createRopeStructure(Scene&, float, float, int, float, float);
-
+	void createExplosion(int rays, float blastPower, b2Vec2 center);
 	void removeObjects();
 	void addToKillList(Object*);
 	void draw(NVGcontext*);

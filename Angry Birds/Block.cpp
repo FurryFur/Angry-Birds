@@ -1,5 +1,6 @@
 #include "Block.h"
 #include "Birb.h"
+#include "Particle.h"
 
 #include "Scene.h"
 
@@ -69,7 +70,8 @@ void Block::preSolve(b2Contact* contact, Object* other, b2Vec2 velocity)
 	{
 		//delete this;
 		if (!m_dead && ((magnitude > 15.0f && dynamic_cast<Block*>(other) != nullptr) ||
-			(magnitude > 5.0f && dynamic_cast<Birb*>(other) != nullptr)))
+			(magnitude > 5.0f && dynamic_cast<Birb*>(other) != nullptr) ||
+			(dynamic_cast<Particle*>(other) != nullptr)))
 		{
 			magnitude > 10.0f ? m_health -= 8 : m_health -= 1;
 
