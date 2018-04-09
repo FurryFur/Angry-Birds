@@ -162,13 +162,13 @@ Block* Scene::createRopeStructure(Scene& scene, float xPos, float yPos, int chai
 	return previousLink;
 }
 
-void Scene::createExplosion(int rays, float blastPower, b2Vec2 center)
+void Scene::createExplosion(int rays, float blastPower, b2Vec2 center, bool shrapnel)
 {
 	for (int i = 0; i < rays; i++) {
 		float angle = (i / (float)rays) * 360 * g_kDegToRad;
 		b2Vec2 rayDir(sinf(angle), cosf(angle));
 
-		Particle* particle = new Particle(*this, center.x, center.y, blastPower,rayDir, rays);
+		Particle* particle = new Particle(*this, center.x, center.y, blastPower,rayDir, rays, shrapnel);
 		//Block* block = new Block(*this, 10, 10, 1, 1, (Shape)(rand() % 2), WOOD);
 
 	}
@@ -177,7 +177,7 @@ void Scene::createExplosion(int rays, float blastPower, b2Vec2 center)
 void Scene::removeObjects()
 {
 	// Remove sleeping particles
-	for (int i = 0; i < m_objs.size(); i++)
+	for (unsigned int i = 0; i < m_objs.size(); i++)
 	{
 		if (dynamic_cast<Particle*>(m_objs[i].get()) != nullptr && !m_objs[i]->getBody().IsAwake())
 		{
@@ -195,7 +195,9 @@ void Scene::removeObjects()
 			}
 			else if(dynamic_cast<Birb*>(kill) != nullptr)
 			{
-				createExplosion(20, 100, kill->getBody().GetPosition());
+				createExplosion(20, 100, kill->getBody().GetPosition(), false);
+				createExplosion(10, 10, kill->getBody().GetPosition(), true);
+
 				m_birbs.erase(std::remove_if(m_birbs.begin(), m_birbs.end(),
 					[kill](Birb* &birb) {return birb == kill; }),
 					m_birbs.end());

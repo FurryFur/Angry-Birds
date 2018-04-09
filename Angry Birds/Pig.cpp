@@ -57,9 +57,11 @@ void Pig::endContact(Object* other)
 void Pig::preSolve(b2Contact* contact, Object* other, b2Vec2 velocity)
 {
 	float magnitude = velocity.Length();
+	Particle* checkParticle = dynamic_cast<Particle*>(other);
+
 	if ((magnitude > 20.0f && dynamic_cast<Block*>(other) != nullptr) ||
 		(magnitude > 5.0f && dynamic_cast<Birb*>(other) != nullptr) ||
-		(dynamic_cast<Particle*>(other) != nullptr))
+		(checkParticle != nullptr && !checkParticle->isShrapnel()))
 	{
 		if (!m_dead)
 		{

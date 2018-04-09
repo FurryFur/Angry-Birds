@@ -68,10 +68,10 @@ void Block::preSolve(b2Contact* contact, Object* other, b2Vec2 velocity)
 	float magnitude = velocity.Length();
 	if (m_type == WOOD)
 	{
-		//delete this;
+		Particle* checkParticle = dynamic_cast<Particle*>(other);
 		if (!m_dead && ((magnitude > 15.0f && dynamic_cast<Block*>(other) != nullptr) ||
 			(magnitude > 5.0f && dynamic_cast<Birb*>(other) != nullptr) ||
-			(dynamic_cast<Particle*>(other) != nullptr)))
+			(checkParticle != nullptr && !checkParticle->isShrapnel())))
 		{
 			magnitude > 10.0f ? m_health -= 8 : m_health -= 1;
 

@@ -36,6 +36,8 @@
 #define NANOVG_GL3_IMPLEMENTATION
 #include <nanovg_gl.h>
 
+#include <vld.h>
+
 #include <memory>
 
 using namespace glm;
