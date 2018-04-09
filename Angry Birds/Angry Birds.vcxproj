@@ -141,6 +141,7 @@
     <ClCompile Include="..\ext\glad\src\glad.c" />
     <ClCompile Include="Birb.cpp" />
     <ClCompile Include="Block.cpp" />
+    <ClCompile Include="Bomber.cpp" />
     <ClCompile Include="Capsule.cpp" />
     <ClCompile Include="CapsuleFactory.cpp" />
     <ClCompile Include="ContactListener.cpp" />
@@ -160,6 +161,7 @@
   <ItemGroup>
     <ClInclude Include="Birb.h" />
     <ClInclude Include="Block.h" />
+    <ClInclude Include="Bomber.h" />
     <ClInclude Include="Capsule.h" />
     <ClInclude Include="CapsuleFactory.h" />
     <ClInclude Include="ContactListener.h" />

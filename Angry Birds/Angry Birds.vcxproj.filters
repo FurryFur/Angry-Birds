@@ -75,6 +75,9 @@
     <ClCompile Include="Particle.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Bomber.cpp">
+      <Filter>Source Files\Objects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Capsule.h">
@@ -127,6 +130,9 @@
     </ClInclude>
     <ClInclude Include="Particle.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Bomber.h">
+      <Filter>Header Files\Objects</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

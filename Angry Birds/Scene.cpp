@@ -190,9 +190,17 @@ void Scene::removeObjects()
 	{
 		for (auto& kill : m_killList)
 		{
-			if (dynamic_cast<Pig*>(kill) != nullptr)
-			{
+			if (dynamic_cast<Pig*>(kill) != nullptr) {
 				m_pigCount--;
+			}
+			else if(dynamic_cast<Birb*>(kill) != nullptr)
+			{
+				createExplosion(20, 10, kill->getBody().GetPosition());
+				m_birbs.erase(std::remove_if(m_birbs.begin(), m_birbs.end(),
+					[kill](Birb* &birb) {return birb == kill; }),
+					m_birbs.end());
+
+				m_nextFlingableBirbIdx--;
 			}
 
 			m_world->DestroyBody(&kill->getBody());

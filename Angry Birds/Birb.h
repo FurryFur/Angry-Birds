@@ -15,14 +15,17 @@ public:
 	Birb(const Birb&) = delete;
 	Birb(Birb&&) = delete;
 
+	virtual void Initialize(Scene& scene);
 	void draw(NVGcontext*) const override;
 
 	void startContact(Object*) override;
 	void endContact(Object*) override;
 
-private:
-	
+protected:
 	float m_birbRadius;
 	float r, g, b;
+
+private:
+	
 };
 
