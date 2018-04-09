@@ -50,11 +50,3 @@ void Bomber::startContact(Object* other)
 
 	}
 }
-
-void Bomber::endContact(Object* other)
-{
-	r = 0;
-	g = 0;
-	b = 0;
-	
-}

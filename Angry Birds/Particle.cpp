@@ -21,7 +21,7 @@ Particle::Particle(Scene& scene, float posX, float posY, float blastPower, b2Vec
 	m_bodyDef.type = b2_dynamicBody;
 	m_bodyDef.fixedRotation = true; // rotation not necessary
 	m_bodyDef.bullet = true; // prevent tunneling at high speed
-	m_bodyDef.linearDamping = 1; // drag due to moving through air
+	m_bodyDef.linearDamping = 10; // drag due to moving through air
 	m_bodyDef.gravityScale = 0; // ignore gravity
 	m_bodyDef.position.Set(posX, posY);
 	m_originalPos.Set(posX, posY);

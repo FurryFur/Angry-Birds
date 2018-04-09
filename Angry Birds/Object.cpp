@@ -17,12 +17,15 @@ b2Body& Object::getBody()
 	return *m_body;
 }
 
-void Object::postSolve(Object*, const b2ContactImpulse*)
+void Object::startContact(Object*)
 {
-
 }
 
-void Object::preSolve(b2Contact *, Object *, b2Vec2)
+void Object::endContact(Object*)
+{
+}
+
+void Object::preSolve(b2Contact*, Object*, b2Vec2)
 {
 }
 

@@ -18,9 +18,6 @@ public:
 	virtual void Initialize(Scene& scene) = 0;
 	void draw(NVGcontext*) const override;
 
-	void startContact(Object*) override;
-	void endContact(Object*) override;
-
 protected:
 	float m_birbRadius;
 	float r, g, b;

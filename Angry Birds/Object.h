@@ -15,10 +15,8 @@ public:
 	const b2BodyDef& getBodyDef() const;
 	b2Body& getBody();
 
-	virtual void startContact(Object*) = 0;
-	virtual void endContact(Object*) = 0;
-
-	virtual void postSolve(Object*, const b2ContactImpulse*);
+	virtual void startContact(Object*);
+	virtual void endContact(Object*);
 
 	virtual void preSolve(b2Contact*, Object*, b2Vec2);
 

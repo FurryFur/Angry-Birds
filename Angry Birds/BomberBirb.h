@@ -11,8 +11,6 @@ public:
 	void Initialize(Scene& scene) override;
 
 	void startContact(Object*) override;
-	void endContact(Object*) override;
-
 
 private:
 	bool m_dead;

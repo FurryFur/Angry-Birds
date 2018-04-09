@@ -17,8 +17,8 @@ Scene1::Scene1(SceneManager& _manager)
 
 	new NormalBirb(*this, 1, 1, .6f);
 	new Bomber(*this, 2, 1, .6f);
-	new NormalBirb(*this, 3, 1, .6f);
 	new Bomber(*this, 4, 1, .6f);
+	new NormalBirb(*this, 3, 1, .6f);
 
 	float meterWidth = pixelToMeter(WINDOW_WIDTH);
 	float meterHeight = pixelToMeter(WINDOW_HEIGHT);

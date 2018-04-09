@@ -195,7 +195,7 @@ void Scene::removeObjects()
 			}
 			else if(dynamic_cast<Birb*>(kill) != nullptr)
 			{
-				createExplosion(20, 10, kill->getBody().GetPosition());
+				createExplosion(20, 100, kill->getBody().GetPosition());
 				m_birbs.erase(std::remove_if(m_birbs.begin(), m_birbs.end(),
 					[kill](Birb* &birb) {return birb == kill; }),
 					m_birbs.end());

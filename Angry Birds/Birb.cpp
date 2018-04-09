@@ -17,20 +17,6 @@ Birb::~Birb()
 {
 }
 
-void Birb::startContact(Object* other)
-{
-	r = 200;
-	g = 0;
-	b = 0;
-}
-
-void Birb::endContact(Object* other)
-{
-	r = 255;
-	g = 0;
-	b = 0;
-}
-
 void Birb::draw(NVGcontext* vg) const
 {
 	nvgFillColor(vg, nvgRGBA(r, g, b, 128));
