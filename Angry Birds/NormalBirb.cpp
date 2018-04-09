@@ -21,7 +21,6 @@ void NormalBirb::Initialize(Scene& scene)
 	g = 0;
 	b = 0;
 
-
 	m_bodyDef.type = b2_dynamicBody;
 	m_bodyDef.angularDamping = 0.9f;
 	m_bodyDef.linearDamping = 0.25f;

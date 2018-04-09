@@ -3,6 +3,8 @@
 
 #include "Birb.h"
 #include "NormalBirb.h"
+#include "StrikeBirb.h"
+#include "BomberBirb.h"
 #include "Pig.h"
 #include "Floor.h"
 #include "Block.h"
@@ -14,10 +16,10 @@ Scene2::Scene2(SceneManager& _manager)
 {
 	m_levelNumber = 2;
 
-	new NormalBirb(*this, 1, 1, .6f);
-	new NormalBirb(*this, 2, 1, .6f);
-	new NormalBirb(*this, 3, 1, .6f);
 	new NormalBirb(*this, 4, 1, .6f);
+	new Bomber(*this, 3, 1, .6f);
+	new Bomber(*this, 2, 1, .6f);
+	new StrikeBirb(*this, 1, 1, .6f);
 
 	float meterWidth = pixelToMeter(WINDOW_WIDTH);
 	float meterHeight = pixelToMeter(WINDOW_HEIGHT);

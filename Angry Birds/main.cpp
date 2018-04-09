@@ -18,6 +18,7 @@
 
 
 #include "Birb.h"
+#include "StrikeBirb.h"
 #include "Floor.h"
 #include "Block.h"
 #include "Utils.h"
@@ -36,13 +37,12 @@
 #define NANOVG_GL3_IMPLEMENTATION
 #include <nanovg_gl.h>
 
-#include <vld.h>
-
 #include <memory>
 
 using namespace glm;
 
 Birb* g_grabbedBirb = nullptr;
+StrikeBirb* g_strikeBirb = nullptr;
 SceneManager g_sceneManager;
 
 const b2Vec2 g_kSlingshotPos = { pixelToMeter(200), pixelToMeter(WINDOW_HEIGHT - 150) };
@@ -56,6 +56,16 @@ void key(GLFWwindow* window, int key, int scancode, int action, int mods)
 {
 	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
 		glfwSetWindowShouldClose(window, GL_TRUE);
+
+	// Fire the strike birb on spacebar
+	if (key == GLFW_KEY_SPACE && action == GLFW_PRESS && g_strikeBirb && g_strikeBirb->inFlight) {
+		float rotAngle = g_strikeBirb->getBody().GetAngle();
+		b2Vec2 impulse{ cos(rotAngle), sin(rotAngle) };
+		impulse *= 100;
+		g_strikeBirb->getBody().ApplyLinearImpulse(impulse, g_strikeBirb->getBody().GetPosition(), true);
+		g_strikeBirb->inFlight = false;
+	}
+
 }
 
 // Make grabbed birb follow mouse position
@@ -65,10 +75,11 @@ void mouseMoveCallback(GLFWwindow* window, double mousex, double mousey)
 		b2Vec2 mousePos = { pixelToMeter(mousex), pixelToMeter(mousey) };
 		b2Vec2 offsetFromSlingshot = mousePos - g_kSlingshotPos;
 		offsetFromSlingshot = limitVec(offsetFromSlingshot, 2);
+		b2Vec2 offsetToSlingshot = -offsetFromSlingshot;
 		b2Vec2 newBirbPos = g_kSlingshotPos + offsetFromSlingshot;
 
 		b2Body& body = g_grabbedBirb->getBody();
-		body.SetTransform(newBirbPos, body.GetAngle());
+		body.SetTransform(newBirbPos, glm::atan(offsetToSlingshot.y, offsetToSlingshot.x));
 		body.SetLinearVelocity(b2Vec2{ 0, 0 });
 		body.SetAngularVelocity(0);
 	}
@@ -96,6 +107,11 @@ void mouseBtnCallback(GLFWwindow* window, int button, int action, int mods)
 		b2Vec2 impulse = (g_kSlingshotPos - birbPos);
 		impulse *= 60;
 		g_grabbedBirb->getBody().ApplyLinearImpulse(impulse, birbPos, true);
+
+		// Set in flight mode for strike birb
+		g_strikeBirb = dynamic_cast<StrikeBirb*>(g_grabbedBirb);
+		if (g_strikeBirb)
+			g_strikeBirb->inFlight = true;
 
 		g_grabbedBirb = nullptr;
 	}

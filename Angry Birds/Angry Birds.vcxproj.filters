@@ -81,6 +81,9 @@
     <ClCompile Include="BomberBirb.cpp">
       <Filter>Source Files\Objects</Filter>
     </ClCompile>
+    <ClCompile Include="StrikeBirb.cpp">
+      <Filter>Source Files\Objects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Capsule.h">
@@ -138,6 +141,9 @@
       <Filter>Header Files\Objects</Filter>
     </ClInclude>
     <ClInclude Include="NormalBirb.h">
+      <Filter>Header Files\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="StrikeBirb.h">
       <Filter>Header Files\Objects</Filter>
     </ClInclude>
   </ItemGroup>
